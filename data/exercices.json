@@ -1,0 +1,274 @@
+{
+    "exercices": [
+        {
+            "id": 1,
+            "nom": "Développé couché avec barre",
+            "muscle": "Pectoraux",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 420,
+            "description": "Exercice fondamental pour développer la masse et la force des pectoraux. Travaille également les épaules et les triceps.",
+            "vidéo_url": "https://www.youtube.com/embed/rT7DgCr-3pg",
+            "tips": [
+                "Gardez les pieds bien au sol",
+                "Descendez la barre jusqu'au milieu de la poitrine",
+                "Contractez les pectoraux en montant"
+            ],
+            "icon": "fas fa-weight-hanging"
+        },
+        {
+            "id": 2,
+            "nom": "Squat complet",
+            "muscle": "Jambes",
+            "difficulté": "Avancé",
+            "calories_par_heure": 650,
+            "description": "Le roi des exercices pour les jambes. Travaille quadriceps, ischio-jambiers, fessiers et muscles stabilisateurs.",
+            "vidéo_url": "https://www.youtube.com/embed/bEv6CCg2BC8",
+            "tips": [
+                "Gardez le dos droit",
+                "Descendez jusqu'à ce que les cuisses soient parallèles au sol",
+                "Poussez avec les talons"
+            ],
+            "icon": "fas fa-walking"
+        },
+        {
+            "id": 3,
+            "nom": "Tirage horizontal à la poulie",
+            "muscle": "Dos",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 380,
+            "description": "Excellent pour l'épaisseur du dos. Cible principalement les grands dorsaux et les rhomboïdes.",
+            "vidéo_url": "https://www.youtube.com/embed/9efgcAjQe7E",
+            "tips": [
+                "Tirez avec les coudes",
+                "Contractez les omoplates",
+                "Contrôlez le mouvement de retour"
+            ],
+            "icon": "fas fa-arrows-alt-h"
+        },
+        {
+            "id": 4,
+            "nom": "Curl biceps avec haltères",
+            "muscle": "Biceps",
+            "difficulté": "Débutant",
+            "calories_par_heure": 280,
+            "description": "Exercice d'isolation pour développer le volume des biceps. Permet une bonne amplitude de mouvement.",
+            "vidéo_url": "https://www.youtube.com/embed/sAq_ocpRh_I",
+            "tips": [
+                "Gardez les coudes fixes",
+                "Soulevez avec contrôle",
+                "Contractez en haut du mouvement"
+            ],
+            "icon": "fas fa-hand-rock"
+        },
+        {
+            "id": 5,
+            "nom": "Extensions triceps à la poulie haute",
+            "muscle": "Triceps",
+            "difficulté": "Débutant",
+            "calories_par_heure": 320,
+            "description": "Isolation des triceps pour développer le bras dans sa partie postérieure. Idéal pour la définition.",
+            "vidéo_url": "https://www.youtube.com/embed/6SS6K3lAwZ8",
+            "tips": [
+                "Gardez les coudes serrés",
+                "Étendez complètement les bras",
+                "Évitez de balancer le corps"
+            ],
+            "icon": "fas fa-hand-point-down"
+        },
+        {
+            "id": 6,
+            "nom": "Crunch abdominal sur banc",
+            "muscle": "Abdominaux",
+            "difficulté": "Débutant",
+            "calories_par_heure": 240,
+            "description": "Renforcement des abdominaux supérieurs avec support lombaire. Réduit la tension sur le bas du dos.",
+            "vidéo_url": "https://www.youtube.com/embed/0t4t3IpiEao",
+            "tips": [
+                "Soulevez seulement les épaules",
+                "Expirez en montant",
+                "Maintenez la contraction"
+            ],
+            "icon": "fas fa-user-md"
+        },
+        {
+            "id": 7,
+            "nom": "Élévations latérales avec haltères",
+            "muscle": "Épaules",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 350,
+            "description": "Développe les deltoïdes latéraux pour des épaules plus larges. Donne la forme en V au torse.",
+            "vidéo_url": "https://www.youtube.com/embed/3VcKaXpzqRo",
+            "tips": [
+                "Légère flexion des coudes",
+                "Soulevez jusqu'à l'horizontale",
+                "Contrôlez la descente"
+            ],
+            "icon": "fas fa-arrows-alt"
+        },
+        {
+            "id": 8,
+            "nom": "Soulevé de terre conventionnel",
+            "muscle": "Dos",
+            "difficulté": "Avancé",
+            "calories_par_heure": 580,
+            "description": "Exercice complet qui engage tout le corps. Développe la force du dos, des jambes et des avant-bras.",
+            "vidéo_url": "https://www.youtube.com/embed/op9kVnSso6Q",
+            "tips": [
+                "Dos droit, poitrine sortie",
+                "Poussez avec les jambes",
+                "Gardez la barre proche du corps"
+            ],
+            "icon": "fas fa-weight"
+        },
+        {
+            "id": 9,
+            "nom": "Pull-down à la machine",
+            "muscle": "Dos",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 340,
+            "description": "Alternative aux tractions pour développer la largeur du dos. Excellent pour les grands dorsaux.",
+            "vidéo_url": "https://www.youtube.com/embed/JA0i9DfB-1o",
+            "tips": [
+                "Tirez avec le dos, pas avec les bras",
+                "Amenez la barre au menton",
+                "Contrôlez la remontée"
+            ],
+            "icon": "fas fa-arrows-alt-v"
+        },
+        {
+            "id": 10,
+            "nom": "Leg press à 45°",
+            "muscle": "Jambes",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 520,
+            "description": "Exercice pour les jambes avec support dorsal. Permet de charger lourd en sécurité.",
+            "vidéo_url": "https://www.youtube.com/embed/IZxyjW7MPJQ",
+            "tips": [
+                "Ne verrouillez pas les genoux",
+                "Descendez jusqu'à 90°",
+                "Poussez avec l'ensemble du pied"
+            ],
+            "icon": "fas fa-shoe-prints"
+        },
+        {
+            "id": 11,
+            "nom": "Développé militaire debout",
+            "muscle": "Épaules",
+            "difficulté": "Avancé",
+            "calories_par_heure": 450,
+            "description": "Développe la masse et la force des épaules. Engage également les triceps et le haut du corps.",
+            "vidéo_url": "https://www.youtube.com/embed/2yjwXTZQDDI",
+            "tips": [
+                "Gainez les abdos",
+                "Montez la barre au-dessus de la tête",
+                "Évitez de cambrer le dos"
+            ],
+            "icon": "fas fa-arrow-up"
+        },
+        {
+            "id": 12,
+            "nom": "Tractions pronation",
+            "muscle": "Dos",
+            "difficulté": "Avancé",
+            "calories_par_heure": 480,
+            "description": "Exercice au poids du corps pour le dos. Excellent pour développer la largeur et la force.",
+            "vidéo_url": "https://www.youtube.com/embed/eGo4IYlbE5g",
+            "tips": [
+                "Poitrine vers la barre",
+                "Descendez avec contrôle",
+                "Gainez le corps"
+            ],
+            "icon": "fas fa-arrow-circle-up"
+        },
+        {
+            "id": 13,
+            "nom": "Pompes classiques",
+            "muscle": "Pectoraux",
+            "difficulté": "Débutant",
+            "calories_par_heure": 320,
+            "description": "Exercice fondamental au poids du corps. Travaille les pectoraux, triceps et épaules.",
+            "vidéo_url": "https://www.youtube.com/embed/IODxDxX7oi4",
+            "tips": [
+                "Corps aligné de la tête aux pieds",
+                "Descendez jusqu'à effleurer le sol",
+                "Poussez avec la poitrine"
+            ],
+            "icon": "fas fa-user"
+        },
+        {
+            "id": 14,
+            "nom": "Fentes avant avec haltères",
+            "muscle": "Jambes",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 420,
+            "description": "Exercice unilatéral pour les jambes. Améliore l'équilibre et la coordination.",
+            "vidéo_url": "https://www.youtube.com/embed/D7KaRcUTQeE",
+            "tips": [
+                "Genou avant à 90°",
+                "Genou arrière frôle le sol",
+                "Dos droit"
+            ],
+            "icon": "fas fa-football-ball"
+        },
+        {
+            "id": 15,
+            "nom": "Rowing barre buste penché",
+            "muscle": "Dos",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 400,
+            "description": "Exercice pour l'épaisseur du dos. Cible les rhomboïdes et le milieu du dos.",
+            "vidéo_url": "https://www.youtube.com/embed/9efgcAjQe7E",
+            "tips": [
+                "Dos parallèle au sol",
+                "Tirez la barre vers le bas-ventre",
+                "Contractez les omoplates"
+            ],
+            "icon": "fas fa-anchor"
+        },
+        {
+            "id": 16,
+            "nom": "Planche abdominale",
+            "muscle": "Abdominaux",
+            "difficulté": "Débutant",
+            "calories_par_heure": 180,
+            "description": "Exercice isométrique pour le gainage. Renforce les abdominaux profonds et améliore la posture.",
+            "vidéo_url": "https://www.youtube.com/embed/pSHjTRCQxIw",
+            "tips": [
+                "Corps aligné comme une planche",
+                "Contractez les abdos et fessiers",
+                "Respirez normalement"
+            ],
+            "icon": "fas fa-border-style"
+        },
+        {
+            "id": 17,
+            "nom": "Burpees complets",
+            "muscle": "Full Body",
+            "difficulté": "Avancé",
+            "calories_par_heure": 680,
+            "description": "Exercice complet qui combine squat, pompe et saut. Excellent pour le cardio et la force.",
+            "vidéo_url": "https://www.youtube.com/embed/JZQA08SlJnM",
+            "tips": [
+                "Enchaînez les mouvements fluidement",
+                "Saut le plus haut possible",
+                "Maintenez un rythme régulier"
+            ],
+            "icon": "fas fa-bolt"
+        },
+        {
+            "id": 18,
+            "nom": "Mountain climbers",
+            "muscle": "Abdominaux",
+            "difficulté": "Intermédiaire",
+            "calories_par_heure": 550,
+            "description": "Exercice dynamique qui combine cardio et renforcement abdominal. Améliore l'endurance musculaire.",
+            "vidéo_url": "https://www.youtube.com/embed/cnyTQDSE884",
+            "tips": [
+                "Mains sous les épaules",
+                "Amenez les genoux vers la poitrine",
+                "Rythme rapide et contrôlé"
+            ],
+            "icon": "fas fa-mountain"
+        }
+    ]
+}

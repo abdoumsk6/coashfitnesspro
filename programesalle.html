@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme d'Entraînement avec Vidéos | Coqsh</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+         .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--primary);
+        }
+ .hero-section {
+            background: #0cbdd4;
+            color: rgb(245, 245, 245);
+            padding: 80px 0;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -50px;
+        }
+        
+
+        :root {
+            --coqsh-primary: #0d6efd;
+            --coqsh-secondary: #6c757d;
+            --coqsh-light: #f8f9fa;
+            --coqsh-dark: #212529;
+        }
+        
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: var(--coqsh-dark);
+        }
+        
+        /* Hero Section */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--coqsh-primary) 0%, #0a58ca 100%);
+            border-radius: 0 0 2rem 2rem;
+            padding: 4rem 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Cards */
+        .jour-card {
+            border: none;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+            box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.05);
+            border-top: 4px solid transparent;
+        }
+        
+        .jour-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1.5rem rgba(13, 110, 253, 0.15);
+        }
+        
+        .jour-card.active {
+            border-top-color: var(--coqsh-primary);
+            background-color: rgba(13, 110, 253, 0.03);
+        }
+        
+        .jour-card.repos {
+            border-top-color: #10ce95af;
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .video-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .video-container {
+            width: 90%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .video-player {
+            width: 100%;
+            height: 506px;
+            background: #000;
+        }
+        
+        .video-info {
+            padding: 20px;
+            background: white;
+        }
+        
+        .close-video {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10000;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-video:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Exercise Cards */
+        .exercise-card {
+            border-left: 4px solid var(--coqsh-primary);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .exercise-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        }
+        
+        .video-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--coqsh-primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .exercise-card:hover .video-icon {
+            opacity: 1;
+        }
+        
+        .badge-series {
+            background-color: var(--coqsh-primary) !important;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+   <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-dumbbell text-danger me-2"></i>
+                <span class="text-primary">FITNESS</span><span class="text-secondary">COACH</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculatrice.html"><i class="fas fa-calculator me-1"></i>Calculatrice</a></li>
+
+
+                    <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Musculation
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="programesalle.html"> Programme d'entraînement hebdomadaire</a></li>
+            <li><a class="dropdown-item" href="exercices.html">Exercices</a></li>
+            <li><hr class="dropdown-divider"></li>
+           
+          </ul>
+        </li>
+
+
+
+
+                    <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            nutrition
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="repas.html">repas</a></li>
+            <li><a class="dropdown-item" href="compl.html">Compléments Alimentaires</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="information nourriture.html">information nourriture</a></li>
+          </ul>
+                    <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">Bibliothèque d'Exercices</h1>
+                    <p class="lead mb-4 opacity-90">
+                        Découvrez +25 exercices détaillés avec vidéos, classés par groupe musculaire et difficulté pour un programme d'entraînement hebdomadaire.
+                        Votre guide complet pour un entraînement efficace.
+                    </p>
+                    <p>
+                        <i class="bi bi-exclamation-triangle-fill"></i>  Ceci est un programme d’entraînement donné à titre indicatif ; vous pouvez l’adapter et le modifier en fonction de vos besoins et de vos objectifs.
+                    </p>
+                   
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="bdannn.jpeg" 
+                         alt="Exercices" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="container pb-5">
+        <!-- Week Grid -->
+        <div class="row g-3 mb-5" id="weekGrid">
+            <!-- Generated by JavaScript -->
+        </div>
+
+        <!-- Workout Details Section -->
+        <div id="workoutDetails">
+            <!-- Generated by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="close-video" id="closeVideo">
+            <i class="bi bi-x"></i>
+        </div>
+        <div class="video-container">
+            <div class="video-player" id="videoPlayer">
+                <!-- YouTube video will be loaded here -->
+            </div>
+            <div class="video-info">
+                <h4 id="videoTitle"></h4>
+                <p id="videoDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JSON Data -->
+    <script type="application/json" id="workoutData">
+        {
+            "lundi": {
+                "title": "Lundi : Poitrine & Triceps",
+                "duration": "60-70 min",
+                "exercises": [
+                    {
+                        "id": "ex1_lundi",
+                        "name": "bench press",
+                        "sets": "4 séries",
+                        "description": "Exercice de base pour la masse pectorale",
+                        "details": ["Série 1 : 10-12 reps (échauffement)", "Séries 2-3 : 8-10 reps", "Série 4 : 6-8 reps (lourde)", "Repos : 60-90 sec"],
+                        "videoId": "5NStATS0zrw",
+                        "videoTitle": "bench press"
+                       
+                    },
+                    
+                     {
+                        "id": "ex3_lundi",
+                        "name": "incline chest press",
+                        "sets": "4 séries",
+                        "description": "Exercice de base pour la masse pectorale",
+                        "details": ["Série 1 : 10-12 reps (échauffement)", "Séries 2-3 : 8-10 reps", "Série 4 : 6-8 reps (lourde)", "Repos : 60-90 sec"],
+                        "videoId": "hkU6fSHcslw",
+                        "videoTitle": "incline chest press - Technique Parfaite"
+                    },
+                    {
+                        "id": "ex4_lundi",
+                        "name": "lower chest workout",
+                        "sets": "3 séries",
+                        "description": "Isolation des triceps à la poulie",
+                        "details": ["12-15 reps par série", "Coudes fixes", "Repos : 45-60 sec"],
+                        "videoId": "IuJ5YKu7CPU",
+                        "videoTitle": "lower chest workout- Technique Complète"
+                    },
+                     {
+                        "id": "ex5_lundi",
+                        "name": "triceps pushdown",
+                        "sets": "4 séries",
+                        "description": "Exercice de base pour la masse pectorale",
+                        "details": ["Série 1 : 10-12 reps (échauffement)", "Séries 2-3 : 8-10 reps", "Série 4 : 6-8 reps (lourde)", "Repos : 60-90 sec"],
+                        "videoId": "Rc7-euA8FDI",
+                        "videoTitle": "triceps pushdown - Technique Parfaite"
+                    },
+                  {
+                        "id": "ex6_lundi",
+                        "name": "triceps overhead workout",
+                        "sets": "4 séries",
+                        "description": "Exercice de base pour la masse pectorale",
+                        "details": ["Série 1 : 10-12 reps (échauffement)", "Séries 2-3 : 8-10 reps", "Série 4 : 6-8 reps (lourde)", "Repos : 60-90 sec"],
+                        "videoId": "9Ark9S11uXw",
+                        "videoTitle": "triceps overhead workout - Technique Parfaite"
+                    }
+
+                    
+                ],
+                "tips": "• Échauffez-vous 10 min avant • Privilégiez la technique à la charge • Hydratez-vous pendant la séance"
+            },
+            "mardi": {
+                "title": "Mardi : Dos & Biceps",
+                "duration": "65-75 min",
+                "exercises": [
+                    {
+                        "id": "ex1_mardi",
+                        "name": "lat pulldown",
+                        "sets": "4 séries",
+                        "description": "Exercice complet pour le dos",
+                        "details": ["Séries 1-2 : 8-10 reps", "Séries 3-4 : 6-8 reps", "Repos : 90 sec"],
+                        "videoId": "trZQjegcRx0",
+                        "videoTitle": "lat pulldown - Débutant à Avancé"
+                    },
+                   {
+                        "id": "ex2_mardi",
+                        "name": "rows",
+                        "sets": "4 séries",
+                        "description": "Exercice complet pour le dos",
+                        "details": ["Séries 1-2 : 8-10 reps", "Séries 3-4 : 6-8 reps", "Repos : 90 sec"],
+                        "videoId": "P5MXRuWV7Cs",
+                        "videoTitle": "rows - Débutant à Avancé"
+                    },
+                     {
+                        "id": "ex3_mardi",
+                        "name": "close grip lat pulldown",
+                        "sets": "4 séries",
+                        "description": "Exercice complet pour le dos",
+                        "details": ["Séries 1-2 : 8-10 reps", "Séries 3-4 : 6-8 reps", "Repos : 90 sec"],
+                        "videoId": "K2fvbRmi1xI",
+                        "videoTitle": "close grip lat pulldown - Débutant à Avancé"
+                    },
+                    
+                    {
+                        "id": "ex4_mardi",
+                        "name": "pullover",
+                        "sets": "3 séries",
+                        "description": "The Perfect Lat Pullover for a Bigger & Wider Back!",
+                        "details": ["10-15 reps par série", "Contrôle du mouvement", "Repos : 80 sec"],
+                        "videoId": "1tWmRBJwzsY",
+                        "videoTitle": "pullover - Exercice Bras"
+                    },
+                      {
+                        "id": "ex4_mardi",
+                        "name": "biceps workout",
+                        "sets": "3 séries",
+                        "description": "The only 3 BICEP Exercises you need to grow your ARMS suvi le video!",
+                        "details": ["10-12 reps par série", "Contrôle du mouvement", "Repos : 80 sec"],
+                        "videoId": "MQgoyogRTBE",
+                        "videoTitle": "biceps workout - Exercice Bras"
+                    }
+                    
+                ],
+                "tips": "• Concentrez-vous sur la contraction • Maintenez le dos droit • Évitez l'élan"
+            },
+            "mercredi": {
+                "title": "Mercredi : Jambes",
+                "duration": "70-80 min",
+                "exercises": [
+                    {
+                        "id": "ex1_mercredi",
+                        "name": "Squat",
+                        "sets": "4 séries",
+                        "description": "Exercice roi pour les jambes",
+                        "details": ["Série 1 : 10 reps (léger)", "Séries 2-4 : 6-8 reps", "Repos : 90-120 sec"],
+                        "videoId": "Ak1iHbEeeY8",
+                        "videoTitle": "Squat - Technique Parfaite pour les Jambes"
+                    },
+                    
+                    
+ {
+                        "id": "ex2_mercredi",
+                        "name": "Bulgarian Split Squatt",
+                        "sets": "3 séries",
+                        "description": "Exercice roi pour les jambes Bulgarian Split Squat Setup & Form Tips (DO THIS!)",
+                        "details": ["Série 1 : 10 reps (léger)", "Séries 2-4 : 6-8 reps", "Repos : 90-120 sec"],
+                        "videoId": "tdOk9XkzGVc",
+                        "videoTitle": "Bulgarian Split Squat Setup Technique Parfaite pour les Jambes"
+                    },
+
+                    {
+                        "id": "ex3_mercredi",
+                        "name": "leg extension",
+                        "sets": "3 séries",
+                        "description": "Isolation des quadriceps",
+                        "details": ["12-15 reps par série", "Contrôle complet", "Repos : 60 sec"],
+                        "videoId": "YyvSfVjQeL0",
+                        "videoTitle": "Extensions Jambes - Exercice Quadriceps"
+                    },
+                    {
+                        "id": "ex4_mercredi",
+                        "name": "Leg Curl",
+                        "sets": "4 séries",
+                        "description": "Leg Curl Form Tips",
+                        "details": ["12-15 reps par série", "Contrôle complet", "Repos : 60 sec"],
+                        "videoId": "_lgE0gPvbik",
+                        "videoTitle": "Leg Curl Form Tips - Exercice Quadriceps"
+                    },
+                     {
+                        "id": "ex5_mercredi",
+                        "name": "mollet workout",
+                        "sets": "4 séries",
+                        "description": "mollet workout Tips",
+                        "details": ["12-15 reps par série", "Contrôle complet", "Repos : 60 sec"],
+                        "videoId": "Crn3aKxFgFI",
+                        "videoTitle": "mollet workout - Exercice Quadriceps"
+                    }
+                    
+                ],
+                "tips": "• Échauffement articulaire crucial • Ceinture pour charges lourdes • Étirements après"
+            },
+            "jeudi": {
+                "title": "Jeudi :  Jour de Repos",
+                "duration": "0 min",
+                "exercises": [
+                    {
+                        "id": "ex1_samedi",
+                        "name": "Repos Actif",
+                        "sets": "-",
+                        "description": "Récupération active ou complète",
+                        "details": ["Étirements légers", "Marche relaxante", "Repos mental"],
+                        "videoId": "ZqfZysn_iAQ",
+                        "videoTitle": "Récupération - Importance du Repos"
+                    }
+                ],
+                "tips": "• Le repos est essentiel • Dormez 7-9 heures • Alimentation équilibrée"
+            },
+
+            "vendredi": {
+                "title": "Vendredi :Poitrine & Dos",
+                "duration": "45-55 min",
+                "exercises": [
+                   
+                    {
+                        "id": "ex2_vendredi",
+                        "name": "incline dumbbell press",
+                        "sets": "4 séries",
+                        "description": "Renforcement de la pectoraux",
+                        "details": ["The PERFECT Incline Dumbbell Chest Press"],
+                        "videoId": "8fXfwG4ftaQ",
+                        "videoTitle": "The PERFECT Incline Dumbbell Chest Press - Technique pour Abdos"
+                    },
+                    {
+                        "id": "ex3_vendredi",
+                        "name": "dips",
+                        "sets": "3 séries",
+                        "description": "Tricep dips vs chest dips 🔥",
+                        "details": ["How To Do The Perfect DIPS"],
+                        "videoId": "dij0l_pL0z8",
+                        "videoTitle": "dips - Exercice Complet"
+                    },
+
+
+                    {
+                        "id": "ex4_vendredi",
+                        "name": "pull up",
+                        "sets": "4 séries",
+                        "description": "Un pull-up (ou traction) est un exercice de musculation où l'on se hisse depuis une position suspendue sous une barre",
+                        "details": ["How To Do The Perfect Pull-up"],
+                        "videoId": "9rckBLbVe8c",
+                        "videoTitle": "How To Do The Perfect Pull-up - Technique pour Abdos"
+                    },
+                    {
+                        "id": "ex5_vendredi",
+                        "name": " Back Extensions Setups",
+                        "sets": "4 séries",
+                        "description": "45 Degrees Back Extensions Setup in 10 Seconds ✅",
+                        "details": ["45 Degrees Back Extensions Setup in 10 Seconds "],
+                        "videoId": "JCdyEyHhnGk",
+                        "videoTitle": "45 Degrees Back Extensions Setup in 10 Seconds ✅"
+                    }
+                ],
+                "tips": "• Adaptez l'intensité • Hydratez-vous • Respiration régulière"
+            },
+            "samedi": {
+                "title": "Samedi : Epaules",
+ "duration": "55-65 min",
+                "exercises": [
+                    {
+                        "id": "ex1_jeudi",
+                        "name": "Développé Militaire",
+                        "sets": "4 séries",
+                        "description": "Développement des épaules",
+                        "details": ["8-10 reps par série", "Assis ou debout", "Repos : 75 sec"],
+                        "videoId": "2yjwXTZQDDI",
+                        "videoTitle": "Développé Militaire - Épaules Fortes"
+                    },
+                    {
+                        "id": "ex2_jeudi",
+                        "name": "Élévations Latérales",
+                        "sets": "4 séries",
+                        "description": "Pour des épaules larges",
+                        "details": ["12-15 reps par série", "Contrôler le mouvement", "Repos : 60 sec"],
+                        "videoId": "WJm9zA2NY8E",
+                        "videoTitle": "Élévations Latérales - Technique"
+                    },
+                    {
+                        "id": "ex3_jeudi",
+                        "name": "shoulder backl",
+                        "sets": "4 séries",
+                        "description": "Pour les deltoïdes postérieurs",
+                        "details": ["15-20 reps par série", "Coudes hauts", "Repos : 45 sec"],
+                        "videoId": "IeOqdw9WI90",
+                        "videoTitle": "Face Pull - Exercice Épaules Postérieures"
+                    },
+
+ {
+                        "id": "ex2_jeudi",
+                        "name": "biceps",
+                        "sets": "4 séries",
+                        "description": " Biceps workout tips",
+                        "details": ["12-15 reps par série", "Contrôler le mouvement", "Repos : 60 sec"],
+                        "videoId": "MidvlAJGpzw",
+                        "videoTitle": " Biceps workout tips"
+                    },
+                    {
+                        "id": "ex3_jeudi",
+                        "name": "Triceps pushdown ",
+                        "sets": "4 séries",
+                        "description": "Triceps pushdown tutorial !! ✅",
+                        "details": ["15-20 reps par série", "Coudes hauts", "Repos : 45 sec"],
+                        "videoId": "Vfr5fx27WJI",
+                        "videoTitle": "Triceps pushdown tutorial !! ✅"
+                    }
+
+
+                ],
+                "tips": "• Articulations fragiles • Soignez la technique • Échauffement des rotateurs"
+            },
+
+
+
+
+                
+            "dimanche": {
+                "title": "Dimanche : Repos",
+                "duration": "50-60 min",
+                "exercises": [
+                    {
+                        "id": "ex1_dimanche",
+                        "name": "planche et abdos gainage !",
+                        "sets": "4 min",
+                        "description": "Entrainement abdos gainage à la maison pour brûler les graisses ! ",
+                        "details": ["suviez le video"],
+                        "videoId": "zOEy6A4zqfg",
+                        "videoTitle": "5 minutes planche et abdos gainage ! (ça brule !)"
+                    }
+                    
+                ],
+                "tips": "• Séance légère • Travaillez l'endurance • Amusez-vous!"
+            }
+        }
+    </script>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const workoutData = JSON.parse(document.getElementById('workoutData').textContent);
+            const weekGrid = document.getElementById('weekGrid');
+            const workoutDetails = document.getElementById('workoutDetails');
+            const videoModal = document.getElementById('videoModal');
+            const closeVideo = document.getElementById('closeVideo');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoTitle = document.getElementById('videoTitle');
+           
+            const videoDescription = document.getElementById('videoDescription');
+            
+            const daysOrder = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+            const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+            
+            let currentDay = 'lundi';
+            let currentExerciseVideo = null;
+            
+            // 1. Créer les cartes des jours
+            function createDayCards() {
+                daysOrder.forEach((dayKey, index) => {
+                    const dayData = workoutData[dayKey];
+                    const isRestDay = dayKey === 'Jeudi';
+                    const isActive = dayKey === currentDay;
+                    
+                    const cardHTML = `
+                        <div class="col-6 col-md-4 col-lg">
+                            <div class="jour-card card h-100 ${isRestDay ? 'repos' : ''} ${isActive ? 'active' : ''}" 
+                                 data-day="${dayKey}">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center py-4">
+                                    <div class="jour-numero mb-2" style="font-size: 2.5rem; font-weight: 800; color: ${isRestDay ? '#20c997' : '#0d6efd'}">
+                                        ${index + 1}
+                                    </div>
+                                    <h5 class="card-title fw-bold mb-1">${dayNames[index]}</h5>
+                                    <span class="type-entrainement mt-2" style="background-color: ${isRestDay ? '#20c997' : '#0d6efd'}; color: white; padding: 0.25rem 0.75rem; border-radius: 50rem; font-size: 0.8rem; font-weight: 600;">
+                                        ${dayData.title.split(':')[1]?.trim() || 'Repos'}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    weekGrid.innerHTML += cardHTML;
+                });
+            }
+            
+            // 2. Afficher les détails d'un jour
+            function showDayDetails(dayKey) {
+                const dayData = workoutData[dayKey];
+                if (!dayData) return;
+                
+                let exercisesHTML = '';
+                dayData.exercises.forEach(exercise => {
+                    exercisesHTML += `
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="exercise-card card h-100 border-0 shadow-sm position-relative" 
+                                 data-exercise='${JSON.stringify(exercise)}'>
+                                <div class="video-icon">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title fw-bold">${exercise.name}</h5>
+                                        <span class="badge rounded-pill bg-primary">${exercise.sets}</span>
+                                    </div>
+                                    <p class="card-text text-muted small">${exercise.description}</p>
+                                    <ul class="list-unstyled mb-0 small">
+                                        ${exercise.details.map(detail => 
+                                            `<li><i class="bi bi-check-circle text-success me-1"></i>${detail}</li>`
+                                        ).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                const detailsHTML = `
+                    <div class="workout-details active">
+                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                            <h2 class="fw-bold mb-2">${dayData.title}</h2>
+                            <span class="badge bg-primary fs-6 p-2">Durée : ${dayData.duration}</span>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            ${exercisesHTML}
+                        </div>
+                        <div class="alert alert-info border-0">
+                            <h5 class="alert-heading fw-bold"><i class="bi bi-lightbulb me-2"></i>Conseils</h5>
+                            <p class="mb-0">${dayData.tips}</p>
+                        </div>
+                    </div>
+                `;
+                
+                workoutDetails.innerHTML = detailsHTML;
+                addExerciseClickHandlers();
+            }
+            
+            // 3. Gérer le clic sur un exercice (pour la vidéo)
+            function addExerciseClickHandlers() {
+                document.querySelectorAll('.exercise-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        const exerciseData = JSON.parse(this.getAttribute('data-exercise'));
+                        showVideo(exerciseData);
+                    });
+                });
+            }
+            
+            // 4. Afficher la vidéo
+            function showVideo(exercise) {
+                currentExerciseVideo = exercise;
+                videoTitle.textContent = exercise.videoTitle;
+                videoDescription.textContent = exercise.description;
+                
+                // Charger la vidéo YouTube
+                videoPlayer.innerHTML = `
+                    <iframe width="100%" height="506" 
+                            src="https://www.youtube.com/embed/${exercise.videoId}?autoplay=1&rel=0" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                `;
+                
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // 5. Fermer la vidéo
+            function closeVideoModal() {
+                videoModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Arrêter la vidéo
+                videoPlayer.innerHTML = '';
+            }
+            
+            // 6. Gérer les événements
+            function setupEventListeners() {
+                // Clic sur les jours
+                weekGrid.addEventListener('click', function(e) {
+                    const dayCard = e.target.closest('.jour-card');
+                    if (!dayCard) return;
+                    
+                    const dayKey = dayCard.getAttribute('data-day');
+                    currentDay = dayKey;
+                    
+                    // Mettre à jour les cartes actives
+                    document.querySelectorAll('.jour-card').forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    dayCard.classList.add('active');
+                    
+                    // Afficher les détails
+                    showDayDetails(dayKey);
+                });
+                
+                // Fermer la vidéo
+                closeVideo.addEventListener('click', closeVideoModal);
+                
+                // Fermer avec Escape
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                        closeVideoModal();
+                    }
+                });
+                
+                // Fermer en cliquant à l'extérieur
+                videoModal.addEventListener('click', function(e) {
+                    if (e.target === videoModal) {
+                        closeVideoModal();
+                    }
+                });
+            }
+            
+            // Initialisation
+            createDayCards();
+            showDayDetails(currentDay);
+            setupEventListeners();
+        });
+    </script>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

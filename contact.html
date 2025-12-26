@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Fitness Coach</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .contact-card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .contact-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .validation-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+        
+        .valid .validation-icon.valid-icon { display: block; color: #28a745; }
+        .invalid .validation-icon.invalid-icon { display: block; color: #dc3545; }
+    </style>
+</head>
+<body>
+     <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+                Fitness Coach
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculatrice.html">Calculatrice</a></li>
+
+                     <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Musculation
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="programesalle.html"> Programme d'entraînement hebdomadaire</a></li>
+            <li><a class="dropdown-item" href="exercices.html">Exercices</a></li>
+            <li><hr class="dropdown-divider"></li>
+           
+          </ul>
+        </li>
+
+                <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            nutrition
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="repas.html">repas</a></li>
+            <li><a class="dropdown-item" href="compl.html">Compléments Alimentaires</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="information nourriture.html">information nourriture</a></li>
+          </ul>
+        </li>
+
+
+                    
+
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="apropos.html">À propos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Carte de contact -->
+                <div class="contact-card bg-white">
+                    <!-- En-tête -->
+                    <div class="contact-header">
+                        <h1 class="display-5 fw-bold mb-3">
+                            <i class="bi bi-chat-dots-fill me-2"></i>
+                            Contactez-nous
+                        </h1>
+                        <p class="lead opacity-75">
+                            Nous sommes là pour vous aider dans votre parcours fitness
+                        </p>
+                    </div>
+                    
+                    <!-- Contenu -->
+                    <div class="row g-0">
+                        <!-- Formulaire -->
+                        <div class="col-lg-7 p-5">
+                            <h3 class="mb-4 text-primary">Envoyez-nous un message</h3>
+                            
+                            <form id="contactForm" novalidate>
+                                <!-- Nom Complet -->
+                                <div class="mb-4">
+                                    <label for="fullName" class="form-label fw-bold">
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        Nom Complet
+                                    </label>
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control form-control-lg" 
+                                               id="fullName" placeholder="Votre nom et prenom" required>
+                                        <i class="bi bi-check-circle-fill validation-icon valid-icon"></i>
+                                        <i class="bi bi-exclamation-circle-fill validation-icon invalid-icon"></i>
+                                    </div>
+                                    <div class="invalid-feedback" id="fullNameFeedback">
+                                        Le nom doit contenir au moins 2 mots
+                                    </div>
+                                </div>
+                                
+                                <!-- Email -->
+                                <div class="mb-4">
+                                    <label for="email" class="form-label fw-bold">
+                                        <i class="bi bi-envelope me-2"></i>
+                                        Adresse Email
+                                    </label>
+                                    <div class="position-relative">
+                                        <input type="email" class="form-control form-control-lg" 
+                                               id="email" placeholder="exemple@gmail.com" required>
+                                        <i class="bi bi-check-circle-fill validation-icon valid-icon"></i>
+                                        <i class="bi bi-exclamation-circle-fill validation-icon invalid-icon"></i>
+                                    </div>
+                                    <div class="invalid-feedback" id="emailFeedback">
+                                        Veuillez entrer une adresse email valide
+                                    </div>
+                                </div>
+                                
+                                <!-- Téléphone -->
+                                <div class="mb-4">
+                                    <label for="phone" class="form-label fw-bold">
+                                        <i class="bi bi-phone me-2"></i>
+                                        Téléphone
+                                    </label>
+                                    <div class="position-relative">
+                                        <input type="tel" class="form-control form-control-lg" 
+                                               id="phone" placeholder="+216 12345678">
+                                        <i class="bi bi-check-circle-fill validation-icon valid-icon"></i>
+                                        <i class="bi bi-exclamation-circle-fill validation-icon invalid-icon"></i>
+                                    </div>
+                                    <div class="invalid-feedback" id="phoneFeedback">
+                                        Format: 06 12 34 56 78 ou +33 6 12 34 56 78
+                                    </div>
+                                </div>
+                                
+                                <!-- Sujet -->
+                                <div class="mb-4">
+                                    <label for="subject" class="form-label fw-bold">
+                                        <i class="bi bi-chat-square-text me-2"></i>
+                                        Sujet
+                                    </label>
+                                    <select class="form-select form-select-lg" id="subject" required>
+                                        <option value="" selected disabled>Sélectionnez un sujet</option>
+                                        <option value="nutrition">Conseils Nutrition</option>
+                                        <option value="exercices">Programme d'Exercices</option>
+                                        <option value="compte">Problème de Compte</option>
+                                        <option value="autre">Autre</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Veuillez sélectionner un sujet
+                                    </div>
+                                </div>
+                                
+                                <!-- Message -->
+                                <div class="mb-4">
+                                    <label for="message" class="form-label fw-bold">
+                                        <i class="bi bi-chat-left-text me-2"></i>
+                                        Message
+                                    </label>
+                                    <textarea class="form-control form-control-lg" id="message" 
+                                              rows="5" placeholder="Votre message..." required></textarea>
+                                    <div class="invalid-feedback">
+                                        Le message doit contenir au moins 10 caractères
+                                    </div>
+                                    <div class="form-text">
+                                        <span id="charCount">0</span> / 500 caractères
+                                    </div>
+                                </div>
+                                
+                                <!-- Newsletter -->
+                                <div class="mb-4 form-check">
+                                    <input type="checkbox" class="form-check-input" id="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        S'inscrire à la newsletter pour recevoir des conseils fitness
+                                    </label>
+                                </div>
+                                
+                                <!-- Boutons -->
+                                <div class="d-grid gap-3">
+                                    <button type="submit" class="btn btn-primary btn-lg py-3">
+                                        <i class="bi bi-send-fill me-2"></i>
+                                        Envoyer le Message
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary btn-lg">
+                                        <i class="bi bi-arrow-clockwise me-2"></i>
+                                        Réinitialiser
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Informations -->
+                        <div class="col-lg-5 p-5" style="background: #f8f9fa;">
+                            <h3 class="mb-4 text-primary">Nos Coordonnées</h3>
+                            
+                            <!-- Info 1 -->
+                            <div class="info-box">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                                        <i class="bi bi-geo-alt text-primary display-6"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">Adresse</h5>
+                                        <p class="text-muted mb-0">Route de Ceinture, Sahloul, 4021 Sousse</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Info 2 -->
+                            <div class="info-box">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success bg-opacity-10 p-3 rounded-circle me-3">
+                                        <i class="bi bi-telephone text-success display-6"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">Téléphone</h5>
+                                        <p class="text-muted mb-0">+216 20 942 795</p>
+                                        <p class="text-muted mb-0">Lun-Ven: 9h-18h</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Info 3 -->
+                            <div class="info-box">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-warning bg-opacity-10 p-3 rounded-circle me-3">
+                                        <i class="bi bi-envelope text-warning display-6"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">Email</h5>
+                                        <p class="text-muted mb-0">abdoumsk6@gmail.com</p>
+                                        <p class="text-muted mb-0">ne Répond pas</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Réseaux sociaux -->
+                            <div class="mt-5">
+                                <h5 class="mb-3">Suivez-nous</h5>
+                                <div class="d-flex gap-3">
+                                    <a href="https://www.facebook.com/share/1KcijwfA1v/?mibextid=wwXIfr" class="btn btn-outline-primary btn-lg">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-info btn-lg">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/abderahmenbaili?igsh=azRpbDU5bTkybjY3&utm_source=qr" class="btn btn-outline-danger btn-lg">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-success btn-lg">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- FAQ -->
+                            <div class="mt-5">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-question-circle me-2"></i>
+                                    Questions Fréquentes
+                                </h5>
+                                <div class="accordion" id="faqAccordion">
+                                    <div class="accordion-item">
+                                        <h6 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" 
+                                                    data-bs-toggle="collapse" data-bs-target="#faq1">
+                                                Comment créer un programme personnalisé ?
+                                            </button>
+                                        </h6>
+                                        <div id="faq1" class="accordion-collapse collapse" 
+                                             data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Utilisez notre calculatrice et consultez notre bibliothèque d'exercices.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h6 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" 
+                                                    data-bs-toggle="collapse" data-bs-target="#faq2">
+                                                Est-ce que le service est gratuit ?
+                                            </button>
+                                        </h6>
+                                        <div id="faq2" class="accordion-collapse collapse" 
+                                             data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Oui, toutes nos fonctionnalités de base sont 100% gratuites.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de succès -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-5">
+                    <div class="bg-success bg-opacity-10 rounded-circle p-4 d-inline-block mb-4">
+                        <i class="bi bi-check-circle-fill text-success display-1"></i>
+                    </div>
+                    <h3 class="text-success mb-3">Message Envoyé !</h3>
+                    <p class="text-muted">
+                        Merci pour votre message. Nous vous répondrons dans les plus brefs délais.
+                    </p>
+                    <div class="mt-4">
+                        <button class="btn btn-outline-success me-2" data-bs-dismiss="modal">
+                            Fermer
+                        </button>
+                        <a href="index.html" class="btn btn-success">
+                            Retour à l'accueil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Validation en temps réel
+        $(document).ready(function() {
+            // Compteur de caractères
+            $('#message').on('input', function() {
+                const length = $(this).val().length;
+                $('#charCount').text(length);
+                
+                if (length > 500) {
+                    $(this).val($(this).val().substring(0, 500));
+                    $('#charCount').text(500);
+                }
+            });
+            
+            // Validation du nom
+            $('#fullName').on('input', function() {
+                const value = $(this).val().trim();
+                const isValid = value.split(' ').length >= 2 && value.length >= 3;
+                
+                validateField($(this), isValid, 'Le nom doit contenir au moins 2 mots');
+            });
+            
+            // Validation de l'email
+            $('#email').on('input', function() {
+                const value = $(this).val().trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const isValid = emailRegex.test(value);
+                
+                validateField($(this), isValid, 'Veuillez entrer une adresse email valide');
+            });
+            
+            // Validation du téléphone
+            $('#phone').on('input', function() {
+                const value = $(this).val().trim();
+                const phoneRegex = /^(?:(?:\+|00)216|0)\s*[1-9](?:[\s.-]*\d{2}){3}$/;
+                const isValid = value === '' || phoneRegex.test(value);
+                
+                validateField($(this), isValid, 'Format: 06 12 34 56 78 ou +33 6 12 34 56 78');
+            });
+            
+            // Validation du sujet
+            $('#subject').on('change', function() {
+                const isValid = $(this).val() !== '';
+                validateField($(this), isValid, 'Veuillez sélectionner un sujet');
+            });
+            
+            // Validation du message
+            $('#message').on('input', function() {
+                const isValid = $(this).val().trim().length >= 10;
+                validateField($(this), isValid, 'Le message doit contenir au moins 10 caractères');
+            });
+            
+            // Fonction générique de validation
+            function validateField(field, isValid, message) {
+                const feedback = field.parent().next('.invalid-feedback');
+                
+                if (isValid) {
+                    field.removeClass('is-invalid').addClass('is-valid');
+                    field.parent().removeClass('invalid').addClass('valid');
+                    feedback.text('');
+                } else {
+                    field.removeClass('is-valid').addClass('is-invalid');
+                    field.parent().removeClass('valid').addClass('invalid');
+                    feedback.text(message);
+                }
+            }
+            
+            // Soumission du formulaire
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Valider tous les champs
+                let isValid = true;
+                
+                // Nom
+                const fullNameValid = $('#fullName').val().trim().split(' ').length >= 2;
+                if (!fullNameValid) {
+                    $('#fullName').addClass('is-invalid');
+                    isValid = false;
+                }
+                
+                // Email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const emailValid = emailRegex.test($('#email').val().trim());
+                if (!emailValid) {
+                    $('#email').addClass('is-invalid');
+                    isValid = false;
+                }
+                
+                // Sujet
+                const subjectValid = $('#subject').val() !== '';
+                if (!subjectValid) {
+                    $('#subject').addClass('is-invalid');
+                    isValid = false;
+                }
+                
+                // Message
+                const messageValid = $('#message').val().trim().length >= 10;
+                if (!messageValid) {
+                    $('#message').addClass('is-invalid');
+                    isValid = false;
+                }
+                
+                // Si tout est valide
+                if (isValid) {
+                    // Simulation d'envoi
+                    console.log('Formulaire soumis:', {
+                        nom: $('#fullName').val(),
+                        email: $('#email').val(),
+                        telephone: $('#phone').val(),
+                        sujet: $('#subject').val(),
+                        message: $('#message').val(),
+                        newsletter: $('#newsletter').is(':checked')
+                    });
+                    
+                    // Afficher modal de succès
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                    
+                    // Réinitialiser le formulaire après 2 secondes
+                    setTimeout(() => {
+                        $('#contactForm')[0].reset();
+                        $('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+                        $('.valid, .invalid').removeClass('valid invalid');
+                        $('#charCount').text('0');
+                    }, 2000);
+                } else {
+                    // Scroll vers le premier champ invalide
+                    $('.is-invalid').first().focus();
+                }
+            });
+            
+            // Réinitialisation
+            $('#contactForm button[type="reset"]').on('click', function() {
+                setTimeout(() => {
+                    $('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+                    $('.valid, .invalid').removeClass('valid invalid');
+                    $('#charCount').text('0');
+                }, 100);
+            });
+            
+            // Validation initiale
+            $('#fullName, #email, #phone, #subject, #message').trigger('input');
+        });
+    </script>
+</body>
+</html>

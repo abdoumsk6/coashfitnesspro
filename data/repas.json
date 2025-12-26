@@ -1,0 +1,100 @@
+{
+    "repas": [
+        {
+            "id": 1,
+            "nom": "Petit-déjeuner protéiné",
+            "type": "Petit-déjeuner",
+            "calories": 450,
+            "proteines": 35,
+            "glucides": 40,
+            "lipides": 15,
+            "objectif": "maintien",
+            "description": "Omelette aux légumes, pain complet, fromage blanc",
+            "temps_preparation": "15 min"
+        },
+        {
+            "id": 2,
+            "nom": "Salade de poulet",
+            "type": "Déjeuner",
+            "calories": 550,
+            "proteines": 45,
+            "glucides": 30,
+            "lipides": 20,
+            "objectif": "perte",
+            "description": "Poulet grillé, laitue, tomates, avocat, vinaigrette légère",
+            "temps_preparation": "20 min"
+        },
+        {
+            "id": 3,
+            "nom": "Smoothie post-entraînement",
+            "type": "Collation",
+            "calories": 350,
+            "proteines": 30,
+            "glucides": 40,
+            "lipides": 8,
+            "objectif": "prise",
+            "description": "Banane, whey protéine, lait d'amande, beurre de cacahuète",
+            "temps_preparation": "5 min"
+        },
+        {
+            "id": 4,
+            "nom": "Saumon et quinoa",
+            "type": "Dîner",
+            "calories": 600,
+            "proteines": 40,
+            "glucides": 50,
+            "lipides": 25,
+            "objectif": "maintien",
+            "description": "Filet de saumon grillé, quinoa, brocolis vapeur",
+            "temps_preparation": "25 min"
+        },
+        {
+            "id": 5,
+            "nom": "Wrap de dinde",
+            "type": "Déjeuner",
+            "calories": 400,
+            "proteines": 35,
+            "glucides": 35,
+            "lipides": 12,
+            "objectif": "perte",
+            "description": "Tortilla complète, dinde, laitue, tomate, sauce yaourt",
+            "temps_preparation": "10 min"
+        },
+        {
+            "id": 6,
+            "nom": "Bol de riz et bœuf",
+            "type": "Dîner",
+            "calories": 700,
+            "proteines": 50,
+            "glucides": 80,
+            "lipides": 20,
+            "objectif": "prise",
+            "description": "Riz brun, bœuf haché maigre, légumes sautés",
+            "temps_preparation": "30 min"
+        },
+        {
+            "id": 7,
+            "nom": "Yaourt protéiné",
+            "type": "Collation",
+            "calories": 250,
+            "proteines": 25,
+            "glucides": 20,
+            "lipides": 5,
+            "objectif": "maintien",
+            "description": "Yaourt grec, baies, miel, graines de chia",
+            "temps_preparation": "5 min"
+        },
+        {
+            "id": 8,
+            "nom": "Omelette aux blancs d'œufs",
+            "type": "Petit-déjeuner",
+            "calories": 300,
+            "proteines": 40,
+            "glucides": 10,
+            "lipides": 10,
+            "objectif": "perte",
+            "description": "Blancs d'œufs, épinards, champignons, fromage allégé",
+            "temps_preparation": "10 min"
+        }
+    ]
+}

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice Calories - Fitness Coach</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .calculator-card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            border: none;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            background-color: #667eea !important;
+            color: white !important;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+                Fitness Coach
+            </a>
+            <div class="d-flex">
+                <a href="index.html" class="btn btn-outline-primary me-2">
+                    <i class="bi bi-house"></i> Accueil
+                </a>
+                <a href="exercices.html" class="btn btn-outline-success">
+                    <i class="bi bi-activity"></i> Exercices
+                </a>
+                  <a href="repas.html" class="btn btn-outline-success">
+                   <i class="bi bi-fork-knife"></i> Repas
+                </a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bold text-primary mb-3">
+                        <i class="bi bi-calculator-fill"></i> Calculatrice de Calories
+                    </h1>
+                    <p class="lead text-muted">
+                        Calculez vos besoins caloriques quotidiens en fonction de vos objectifs
+                    </p>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Formulaire -->
+                    <div class="col-md-6">
+                        <div class="calculator-card p-4 h-100">
+                            <h3 class="mb-4">
+                                <i class="bi bi-person-circle text-primary me-2"></i>
+                                Vos Informations
+                            </h3>
+                            
+                            <form id="calorieForm">
+                                <!-- Genre -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Genre</label>
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check form-check-inline flex-grow-1">
+                                            <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
+                                            <label class="form-check-label w-100 text-center p-2 rounded border" for="male">
+                                                <i class="bi bi-gender-male display-6 d-block text-primary"></i>
+                                                <span>Homme</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline flex-grow-1">
+                                            <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                            <label class="form-check-label w-100 text-center p-2 rounded border" for="female">
+                                                <i class="bi bi-gender-female display-6 d-block text-danger"></i>
+                                                <span>Femme</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Âge -->
+                                <div class="mb-4">
+                                    <label for="age" class="form-label fw-bold">
+                                        <i class="bi bi-calendar3 me-2"></i>Âge
+                                    </label>
+                                    <input type="range" class="form-range" id="ageRange" min="15" max="70" value="30">
+                                    <div class="d-flex justify-content-between">
+                                        <span>15 ans</span>
+                                        <span id="ageValue" class="fw-bold text-primary">30 ans</span>
+                                        <span>70 ans</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Poids et Taille -->
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label for="weight" class="form-label fw-bold">
+                                            <i class="bi bi-speedometer2 me-2"></i>Poids (kg)
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="weight" value="70" min="40" max="200" required>
+                                            <span class="input-group-text">kg</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="height" class="form-label fw-bold">
+                                            <i class="bi bi-rulers me-2"></i>Taille (cm)
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="height" value="175" min="140" max="220" required>
+                                            <span class="input-group-text">cm</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Activité -->
+                                <div class="mb-4">
+                                    <label for="activity" class="form-label fw-bold">
+                                        <i class="bi bi-lightning-charge me-2"></i>Niveau d'Activité
+                                    </label>
+                                    <select class="form-select" id="activity" required>
+                                        <option value="1.2">Sédentaire (peu ou pas d'exercice)</option>
+                                        <option value="1.375">Légèrement actif (1-3 jours/semaine)</option>
+                                        <option value="1.55" selected>Modérément actif (3-5 jours/semaine)</option>
+                                        <option value="1.725">Très actif (6-7 jours/semaine)</option>
+                                        <option value="1.9">Extrêmement actif (sport professionnel)</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Objectif -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">
+                                        <i class="bi bi-bullseye me-2"></i>Objectif
+                                    </label>
+                                    <div class="btn-group w-100" role="group">
+                                        <input type="radio" class="btn-check" name="goal" id="loss" value="loss" autocomplete="off">
+                                        <label class="btn btn-outline-danger" for="loss">
+                                            <i class="bi bi-arrow-down"></i> Perte
+                                        </label>
+                                        
+                                        <input type="radio" class="btn-check" name="goal" id="maintain" value="maintain" autocomplete="off" checked>
+                                        <label class="btn btn-outline-warning" for="maintain">
+                                            <i class="bi bi-dash-circle"></i> Maintien
+                                        </label>
+                                        
+                                        <input type="radio" class="btn-check" name="goal" id="gain" value="gain" autocomplete="off">
+                                        <label class="btn btn-outline-success" for="gain">
+                                            <i class="bi bi-arrow-up"></i> Prise
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Bouton Calculer -->
+                                <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
+                                    <i class="bi bi-calculator me-2"></i> CALCULER MES CALORIES
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Résultats -->
+                    <div class="col-md-6">
+                        <div class="result-card p-4 h-100">
+                            <h3 class="mb-4">
+                                <i class="bi bi-graph-up-arrow me-2"></i>
+                                Vos Résultats
+                            </h3>
+                            
+                            <!-- Message initial -->
+                            <div id="initialMessage" class="text-center py-5">
+                                <i class="bi bi-arrow-up-circle display-1 text-white-50 mb-3"></i>
+                                <h4>Remplissez le formulaire</h4>
+                                <p class="text-white-75">Vos résultats apparaîtront ici</p>
+                            </div>
+                            
+                            <!-- Résultats (cachés au début) -->
+                            <div id="resultsSection" style="display: none;">
+                                <!-- Calories -->
+                                <div class="text-center mb-4">
+                                    <h6 class="text-white-75">Besoins Caloriques Quotidiens</h6>
+                                    <h1 class="display-3 fw-bold" id="dailyCalories">0</h1>
+                                    <p class="text-white-75">kilocalories / jour</p>
+                                </div>
+                                
+                                <!-- Graphique -->
+                                <div class="mb-4">
+                                    <h6 class="text-white-75 mb-3">Répartition des Macronutriments</h6>
+                                    <div class="chart-container">
+                                        <canvas id="nutritionChart"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <!-- Macronutriments -->
+                                <div class="row text-center g-3">
+                                    <div class="col-4">
+                                        <div class="bg-white bg-opacity-25 rounded p-3">
+                                            <h6 class="text-white">Protéines</h6>
+                                            <h4 class="fw-bold" id="proteinAmount">0</h4>
+                                            <small class="text-white-75">grammes</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="bg-white bg-opacity-25 rounded p-3">
+                                            <h6 class="text-white">Glucides</h6>
+                                            <h4 class="fw-bold" id="carbsAmount">0</h4>
+                                            <small class="text-white-75">grammes</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="bg-white bg-opacity-25 rounded p-3">
+                                            <h6 class="text-white">Lipides</h6>
+                                            <h4 class="fw-bold" id="fatAmount">0</h4>
+                                            <small class="text-white-75">grammes</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Conseils -->
+                                <div class="mt-4 p-3 bg-white bg-opacity-25 rounded">
+                                    <h6 class="text-white">
+                                        <i class="bi bi-lightbulb me-2"></i>Conseils
+                                    </h6>
+                                    <p class="text-white mb-0" id="adviceText">
+                                        Pour atteindre vos objectifs...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Informations supplémentaires -->
+                <div class="calculator-card p-4 mt-4">
+                    <h4 class="mb-3">
+                        <i class="bi bi-info-circle text-primary me-2"></i>
+                        Comment ça marche ?
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                    <i class="bi bi-calculator text-primary display-6"></i>
+                                </div>
+                                <h5>Formule Harris-Benedict</h5>
+                                <p class="text-muted">Basée sur votre métabolisme de base</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                    <i class="bi bi-activity text-success display-6"></i>
+                                </div>
+                                <h5>Adapté à votre activité</h5>
+                                <p class="text-muted">Prend en compte votre niveau d'exercice</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="bg-warning bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                    <i class="bi bi-bullseye text-warning display-6"></i>
+                                </div>
+                                <h5>Personnalisé</h5>
+                                <p class="text-muted">Ajusté selon vos objectifs personnels</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="mb-3">
+                        <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+                        Fitness Coach
+                    </h5>
+                    <p class="text-white-75 mb-0">
+                        Votre partenaire santé et fitness
+                    </p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="index.html" class="text-white-50 me-3">
+                        <i class="bi bi-house me-1"></i> Accueil
+                    </a>
+                    <a href="exercices.html" class="text-white-50 me-3">
+                        <i class="bi bi-activity me-1"></i> Exercices
+                    </a>
+                    <a href="contact.html" class="text-white-50">
+                        <i class="bi bi-envelope me-1"></i> Contact
+                    </a>
+                </div>
+            </div>
+            <hr class="bg-light my-3">
+            <p class="text-center text-white-75 mb-0">
+                © 2026 Fitness Coach. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Variables globales
+        let nutritionChart = null;
+        
+        // Mise à jour de l'âge avec le slider
+        document.getElementById('ageRange').addEventListener('input', function() {
+            document.getElementById('ageValue').textContent = this.value + ' ans';
+        });
+        
+        // Fonction de calcul des calories
+        function calculateCalories(age, weight, height, gender, activity, goal) {
+            // Formule Harris-Benedict révisée
+            let bmr;
+            if (gender === 'male') {
+                bmr = 5 + (10 * weight) + (6.25 * height) - (5 * age);
+            } else {
+                bmr = -161 + (9.8 * weight) + (6.25 * height) - (5 * age);
+            }
+            
+            // Ajustement avec l'activité
+            let dailyCalories = Math.round(bmr * parseFloat(activity));
+            
+            // Ajustement selon l'objectif
+            if (goal === 'loss') {
+                dailyCalories -= 350; // Déficit pour perte de poids
+            } else if (goal === 'gain') {
+                dailyCalories += 250; // Surplus pour prise de masse
+            }
+            
+            return Math.max(dailyCalories, 1200); // Minimum sécuritaire
+        }
+        
+        // Fonction de calcul des macronutriments
+        function calculateMacros(calories, goal) {
+            let proteinPercent, carbsPercent, fatPercent;
+            
+            if (goal === 'loss') {
+                proteinPercent = 0.25;  // 40% protéines
+                carbsPercent = 0.35;    // 35% glucides
+                fatPercent = 0.12;      // 25% lipides
+            } else if (goal === 'gain') {
+                proteinPercent = 0.21;  // 30% protéines
+                carbsPercent = 0.62;    // 50% glucides
+                fatPercent = 0.13;      // 20% lipides
+            } else {
+                proteinPercent = 0.24;  // 30% protéines
+                carbsPercent = 0.63;    // 40% glucides
+                fatPercent = 0.13;      // 30% lipides
+            }
+            
+            // Conversion en grammes
+            const proteinGrams = Math.round((calories * proteinPercent) / 4);
+            const carbsGrams = Math.round((calories * carbsPercent) / 4);
+            const fatGrams = Math.round((calories * fatPercent) / 9);
+            
+            return {
+                protein: proteinGrams,
+                carbs: carbsGrams,
+                fat: fatGrams,
+                proteinPercent: Math.round(proteinPercent * 100),
+                carbsPercent: Math.round(carbsPercent * 100),
+                fatPercent: Math.round(fatPercent * 100)
+            };
+        }
+        
+        // Fonction pour obtenir des conseils
+        function getAdvice(goal, calories) {
+            const advices = {
+                loss: `Pour perdre du poids, visez ${calories} kcal/jour. Privilégiez les protéines maigres, les légumes et les exercices cardio.`,
+                maintain: `Pour maintenir votre poids, consommez ${calories} kcal/jour. Équilibrez vos repas et combinez cardio et musculation.`,
+                gain: `Pour prendre de la masse, consommez ${calories} kcal/jour. Augmentez les protéines et les glucides complexes, avec un focus sur la musculation.`
+            };
+            return advices[goal] || 'Maintenez une alimentation équilibrée et un programme d\'exercice régulier.';
+        }
+        
+        // Fonction pour afficher le graphique
+        function renderChart(proteinPercent, carbsPercent, fatPercent) {
+            const ctx = document.getElementById('nutritionChart').getContext('2d');
+            
+            if (nutritionChart) {
+                nutritionChart.destroy();
+            }
+            
+            nutritionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Protéines', 'Glucides', 'Lipides'],
+                    datasets: [{
+                        data: [proteinPercent, carbsPercent, fatPercent],
+                        backgroundColor: [
+                            '#28a745', // Vert
+                            '#007bff', // Bleu
+                            '#ffc107'  // Jaune
+                        ],
+                        borderWidth: 2,
+                        borderColor: 'rgba(255, 255, 255, 0.8)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'white',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Gestion du formulaire
+        document.getElementById('calorieForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupération des valeurs
+            const age = parseInt(document.getElementById('ageRange').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const activity = document.getElementById('activity').value;
+            const goal = document.querySelector('input[name="goal"]:checked').value;
+            
+            // Animation de chargement
+            const initialMessage = document.getElementById('initialMessage');
+            const resultsSection = document.getElementById('resultsSection');
+            
+            initialMessage.style.opacity = '0.5';
+            initialMessage.innerHTML = `
+                <div class="spinner-border text-white mb-3"></div>
+                <h4>Calcul en cours...</h4>
+            `;
+            
+            // Simulation de calcul avec délai
+            setTimeout(() => {
+                // Calculs
+                const dailyCalories = calculateCalories(age, weight, height, gender, activity, goal);
+                const macros = calculateMacros(dailyCalories, goal);
+                const advice = getAdvice(goal, dailyCalories);
+                
+                // Mise à jour de l'interface
+                document.getElementById('dailyCalories').textContent = 
+                    dailyCalories.toLocaleString();
+                document.getElementById('proteinAmount').textContent = macros.protein;
+                document.getElementById('carbsAmount').textContent = macros.carbs;
+                document.getElementById('fatAmount').textContent = macros.fat;
+                document.getElementById('adviceText').textContent = advice;
+                
+                // Affichage du graphique
+                renderChart(macros.proteinPercent, macros.carbsPercent, macros.fatPercent);
+                
+                // Transition
+                initialMessage.style.display = 'none';
+                resultsSection.style.display = 'block';
+                resultsSection.style.opacity = '0';
+                
+                setTimeout(() => {
+                    resultsSection.style.opacity = '1';
+                    resultsSection.style.transition = 'opacity 0.5s';
+                }, 10);
+                
+            }, 1000);
+        });
+        
+        // Calcul initial au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Déclencher un calcul initial
+            document.getElementById('calorieForm').dispatchEvent(new Event('submit'));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكملات الغذائية: دليل شامل للصحة والرياضة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #aab0e6;
+            --secondary-color: #dddddd;
+            --accent-color: #080701;
+            --sports-color: #667eea;
+            --light-color: #f5f9f0;
+            --dark-color: #cc64b2;
+            --text-color: #333;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: rgb(17, 2, 2);
+            padding: 20px 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            color: #c00b0b;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: rgb(12, 1, 1);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background-color: #00d30b;
+            color: var(--dark-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(121, 102, 226, 0.9), rgba(44, 60, 95, 0.8)), url('https://images.unsplash.com/photo-1535914254981-b5012eebbd15?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        /* Main Content */
+        .content-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-right: 5px solid var(--secondary-color);
+            padding-right: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sports-title {
+            color: var(--sports-color);
+            border-right: 5px solid var(--sports-color);
+        }
+        
+        .section-title i {
+            color: var(--accent-color);
+        }
+        
+        .sports-title i {
+            color: var(--sports-color);
+        }
+        
+        .warning-note {
+            background-color: #fff9e6;
+            border-right: 5px solid var(--accent-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .warning-note h3 {
+            color: #b8860b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        /* Supplements Grid */
+        .supplements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .supplement-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sports-card {
+            border-top: 5px solid var(--sports-color);
+        }
+        
+        .supplement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .supplement-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--sports-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .card-header {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .sports-card .card-header {
+            background-color: #fef3e9;
+            color: var(--sports-color);
+        }
+        
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-body ul {
+            padding-right: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .card-body li {
+            margin-bottom: 8px;
+        }
+        
+        .usage-info {
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+            border-right: 3px solid var(--primary-color);
+        }
+        
+        .sports-card .usage-info {
+            border-right: 3px solid var(--sports-color);
+        }
+        
+        .usage-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sports-card .usage-info h4 {
+            color: var(--sports-color);
+        }
+        
+        /* Guidelines */
+        .guidelines-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .guideline-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .guideline-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Tabs for sports supplements */
+        .sports-tabs {
+            margin-bottom: 30px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            background-color: #eee;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: var(--transition);
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .tab-button:hover {
+            background-color: #ddd;
+        }
+        
+        .tab-button.active {
+            background-color: var(--sports-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-right: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .supplements-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .guidelines-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .guidelines-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .supplements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>دليل المكملات الغذائية والرياضية</span>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav class="mobile-menu" id="mainNav">
+                    <ul>
+                        <li><a href="index.html" class="btn btn-outline-primary me-2">
+                    <i class="bi bi-house"></i> Accueil
+                </a></li>
+                        <li><a href="#types"><i class="fas fa-list"></i> المكملات العامة</a></li>
+                        <li><a href="#sports"><i class="fas fa-dumbbell"></i> مكملات رياضية</a></li>
+                        <li><a href="#usage"><i class="fas fa-book-open"></i> طرق الاستخدام</a></li>
+                        <li><a href="#guidelines"><i class="fas fa-clipboard-check"></i> إرشادات هامة</a></li>
+                         
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>المكملات الغذائية والرياضية: دليل الاستخدام الشامل</h1>
+            <p>اكتشف المعلومات الأساسية حول أهم المكملات الغذائية والرياضية، فوائدها، وطرق استخدامها الآمنة لتحسين صحتك وأدائك الرياضي</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Warning Note -->
+        <div class="warning-note">
+            <h3><i class="fas fa-exclamation-circle"></i> ملاحظة هامة</h3>
+            <p>المعلومات المقدمة في هذه الصفحة لأغراض تعليمية فقط ولا تُعد بديلاً عن الاستشارة الطبية أو من أخصائي التغذية. استشر طبيبك أو أخصائي التغذية قبل البدء في تناول أي مكمل غذائي، خاصة إذا كنت تعاني من حالات صحية معينة أو تتناول أدوية أخرى.</p>
+        </div>
+
+        <!-- General Supplements Section -->
+        <section id="types" class="content-section">
+            <h2 class="section-title"><i class="fas fa-capsules"></i> المكملات الغذائية العامة</h2>
+            
+            <div class="supplements-grid">
+                <!-- Vitamin D Card -->
+                <div class="supplement-card">
+                    <div class="card-image">
+                        <img src="complement/vitamin d.jpg" alt="فيتامين د">
+                    </div>
+                    <div class="card-header">فيتامين د (Vitamin D)</div>
+                    <div class="card-body">
+                        <p>فيتامين ذو أهمية كبيرة لصحة العظام والمناعة.</p>
+                        <ul>
+                            <li><strong>الفوائد الرئيسية:</strong> تعزيز امتصاص الكالسيوم، دعم صحة العظام، تقوية المناعة</li>
+                            <li><strong>الجرعة اليومية الموصى بها:</strong> 600-800 وحدة دولية للبالغين</li>
+                            <li><strong>المصادر الطبيعية:</strong> أشعة الشمس، الأسماك الدهنية، صفار البيض</li>
+                        </ul>
+                        <div class="usage-info">
+                            <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                            <p>يفضل تناوله مع وجبة تحتوي على دهون لتحسين الامتصاص. الجرعات العالية يجب أن تكون تحت إشراف طبي.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Omega-3 Card -->
+                <div class="supplement-card">
+                    <div class="card-image">
+                        <img src="complement/اوميغا-3.png" alt="أوميغا 3">
+                    </div>
+                    <div class="card-header">أوميغا 3 (Omega-3)</div>
+                    <div class="card-body">
+                        <p>أحماض دهنية أساسية مهمة لصحة القلب والدماغ.</p>
+                        <ul>
+                            <li><strong>الفوائد الرئيسية:</strong> دعم صحة القلب، تحسين وظائف الدماغ، تقليل الالتهابات</li>
+                            <li><strong>الجرعة اليومية الموصى بها:</strong> 250-500 مجم من EPA+DHA للبالغين</li>
+                            <li><strong>المصادر الطبيعية:</strong> الأسماك الدهنية، بذور الكتان، الجوز</li>
+                        </ul>
+                        <div class="usage-info">
+                            <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                            <p>تناول مع الوجبات لتقليل أي اضطرابات في الجهاز الهضمي. يفضل تخزينه في مكان بارد ومظلم.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Magnesium Card -->
+                <div class="supplement-card">
+                    <div class="card-image">
+                        <img src="complement/magnesiumm.webp" alt="المغنيسيوم">
+                    </div>
+                    <div class="card-header">المغنيسيوم (Magnesium)</div>
+                    <div class="card-body">
+                        <p>معدن أساسي يشارك في مئات التفاعلات الكيميائية بالجسم.</p>
+                        <ul>
+                            <li><strong>الفوائد الرئيسية:</strong> دعم وظائف العضلات والأعصاب، تنظيم ضغط الدم، تحسين النوم</li>
+                            <li><strong>الجرعة اليومية الموصى بها:</strong> 310-420 مجم للبالغين حسب العمر والجنس</li>
+                            <li><strong>المصادر الطبيعية:</strong> المكسرات، البذور، الخضروات الورقية</li>
+                        </ul>
+                        <div class="usage-info">
+                            <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                            <p>يمكن تناوله في أي وقت من اليوم. بعض أشكاله (كسيترات المغنيسيوم) قد تسبب تأثيراً مليناً.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sports Supplements Section -->
+        <section id="sports" class="content-section">
+            <h2 class="section-title sports-title"><i class="fas fa-dumbbell"></i> مكملات رياضة كمال الأجسام</h2>
+            
+            <div class="sports-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="protein">بروتين</button>
+                    <button class="tab-button" data-tab="creatine">كرياتين</button>
+                    <button class="tab-button" data-tab="preworkout">مكملات ما قبل التمرين</button>
+                    <button class="tab-button" data-tab="recovery">مكملات التعافي</button>
+                </div>
+                
+                <!-- Protein Tab -->
+                <div id="protein" class="tab-content active">
+                    <div class="supplements-grid">
+                        <!-- Whey Protein -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/whyprot.png" alt="بروتين الواي">
+                                <div class="category-badge">بروتين</div>
+                            </div>
+                            <div class="card-header">بروتين الواي (Whey Protein)</div>
+                            <div class="card-body">
+                                <p>بروتين سريع الامتصاص من الحليب، مثالي بعد التمرين.</p>
+                                <ul>
+                                    <li><strong>الفوائد الرئيسية:</strong> بناء العضلات، التعافي السريع، سهل الهضم</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 20-30 جم بعد التمرين أو بين الوجبات</li>
+                                    <li><strong>الأنواع:</strong> كونسنتريت، آيزوليت، هيدروليزيت</li>
+                                    <li><strong>محتوى البروتين:</strong> 70-90% حسب النوع</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول بعد التمرين بـ 30-60 دقيقة مع الكربوهيدرات. يمكن أيضاً تناوله في الصباح أو بين الوجبات لسد احتياجات البروتين اليومية.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Casein Protein -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/Protein-casien.avif" alt="بروتين الكازين">
+                                <div class="category-badge">بروتين</div>
+                            </div>
+                            <div class="card-header">بروتين الكازين (Casein Protein)</div>
+                            <div class="card-body">
+                                <p>بروتين بطيء الامتصاص من الحليب، مثالي قبل النوم.</p>
+                                <ul>
+                                    <li><strong>الفوائد الرئيسية:</strong> إطلاق تدريجي للأحماض الأمينية، منع هدم العضلات ليلاً</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 20-40 جم قبل النوم</li>
+                                    <li><strong>معدل الامتصاص:</strong> 6-8 ساعات للإطلاق الكامل</li>
+                                    <li><strong>محتوى البروتين:</strong> 80-90%</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول قبل النوم بـ 30 دقيقة لضمان إمداد مستمر للأحماض الأمينية طوال الليل. يمكن خلطه بالماء أو الحليب.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Plant Protein -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/prot-plant.jpg" alt="بروتين نباتي">
+                                <div class="category-badge">بروتين</div>
+                            </div>
+                            <div class="card-header">بروتين نباتي (Plant Protein)</div>
+                            <div class="card-body">
+                                <p>خيار ممتاز للنباتيين ومن يعانون من حساسية اللاكتوز.</p>
+                                <ul>
+                                    <li><strong>الفوائد الرئيسية:</strong> خالي من اللاكتوز، مناسب للنباتيين، سهل الهضم</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 25-40 جم بعد التمرين أو بين الوجبات</li>
+                                    <li><strong>المصادر الشائعة:</strong> البازلاء، الأرز البني، القنب، فول الصويا</li>
+                                    <li><strong>محتوى البروتين:</strong> 70-85%</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول بعد التمرين أو كوجبة خفيفة. يفضل مزج أنواع مختلفة لتحقيق ملف أحماض أمينية كامل.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creatine Tab -->
+                <div id="creatine" class="tab-content">
+                    <div class="supplements-grid">
+                        <!-- Creatine Monohydrate -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/creatine monohaydrate.png" alt="كرياتين مونوهيدرات">
+                                <div class="category-badge">كرياتين</div>
+                            </div>
+                            <div class="card-header">كرياتين مونوهيدرات (Creatine Monohydrate)</div>
+                            <div class="card-body">
+                                <p>المكمل الأكثر بحثاً وفعالية لزيادة القوة والكتلة العضلية.</p>
+                                <ul>
+                                    <li><strong>الفوائد الرئيسية:</strong> زيادة القوة، تحسين الأداء، زيادة حجم العضلات</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 3-5 جم يومياً</li>
+                                    <li><strong>طريقة التحميل:</strong> 20 جم يومياً (4 جرعات) لمدة 5-7 أيام</li>
+                                    <li><strong>الاستخدام:</strong> 6-8 أسابيع مع راحة 2-4 أسابيع</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول بعد التمرين مع البروتين والكربوهيدرات أو قبل التمرين بـ 30 دقيقة. يفضل مع عصير لتحسين الامتصاص.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Creatine HCL -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/creatine-hcl.png" alt="كرياتين HCL">
+                                <div class="category-badge">كرياتين</div>
+                            </div>
+                            <div class="card-header">كرياتين هيدروكلوريد (Creatine HCL)</div>
+                            <div class="card-body">
+                                <p>صيغة أكثر ذوبانية وقد تسبب انزعاجاً معوياً أقل.</p>
+                                <ul>
+                                    <li><strong>الفوائد الرئيسية:</strong> ذوبانية أعلى، جرعات أقل، انزعاج معوي أقل</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 1-2 جم يومياً</li>
+                                    <li><strong>المميزات:</strong> لا يحتاج تحميل، امتصاص أسرع</li>
+                                    <li><strong>الذوبانية:</strong> أعلى بـ 38 مرة من المونوهيدرات</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول قبل أو بعد التمرين. لا يحتاج إلى مرحلة تحميل. يمكن تناوله مع الماء فقط بسبب ذوبانيته العالية.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pre-Workout Tab -->
+                <div id="preworkout" class="tab-content">
+                    <div class="supplements-grid">
+                        <!-- Stimulant Pre-Workout -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/مكملات قبل التمرين (مع منبهات).avif" alt="مكمل قبل التمرين">
+                                <div class="category-badge">قبل التمرين</div>
+                            </div>
+                            <div class="card-header">مكملات قبل التمرين (مع منبهات)</div>
+                            <div class="card-body">
+                                <p>تعزيز الطاقة والتركيز والأداء خلال التمرين.</p>
+                                <ul>
+                                    <li><strong>المكونات الأساسية:</strong> كافيين، بيتا-ألانين، سيترولين، أرجينين</li>
+                                    <li><strong>الفوائد الرئيسية:</strong> زيادة الطاقة، تحسين التركيز، تأخير التعب</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> حسب المنتج (عادة 1 سكوب)</li>
+                                    <li><strong>التوقيت:</strong> 20-30 دقيقة قبل التمرين</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول قبل التمرين بـ 20-30 دقيقة. تجنب تناوله بعد الساعة 4 مساءً إذا كنت حساساً للكافيين. استخدم 3-4 مرات أسبوعياً فقط.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stimulant-Free Pre-Workout -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/مكملات قبل التمرين (بدون منبهات).webp" alt="مكمل قبل التمرين خالي من المنبهات">
+                                <div class="category-badge">قبل التمرين</div>
+                            </div>
+                            <div class="card-header">مكملات قبل التمرين (بدون منبهات)</div>
+                            <div class="card-body">
+                                <p>تحسين الأداء دون تأثيرات المنبهات، مناسب للمساء.</p>
+                                <ul>
+                                    <li><strong>المكونات الأساسية:</strong> سيترولين، بيتا-ألانين، تورين، فيتامينات ب</li>
+                                    <li><strong>الفوائد الرئيسية:</strong> تحسين ضخ الدم للعضلات، زيادة القوة، تأخير التعب</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> حسب المنتج (عادة 1-2 سكوب)</li>
+                                    <li><strong>التوقيت:</strong> 30-45 دقيقة قبل التمرين</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول قبل التمرين بـ 30-45 دقيقة. مناسب للتمرين المسائي لأنه لا يحتوي على كافيين. يمكن استخدامه يومياً.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recovery Tab -->
+                <div id="recovery" class="tab-content">
+                    <div class="supplements-grid">
+                        <!-- BCAA -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/أحماض أمينية متفرعة السلسلة (BCAA).avif" alt="BCAA">
+                                <div class="category-badge">تعافي</div>
+                            </div>
+                            <div class="card-header">أحماض أمينية متفرعة السلسلة (BCAA)</div>
+                            <div class="card-body">
+                                <p>تسريع التعافي وتقليل آلام العضلات بعد التمرين.</p>
+                                <ul>
+                                    <li><strong>المكونات:</strong> ليوسين، إيزوليوسين، فاليين (نسبة 2:1:1)</li>
+                                    <li><strong>الفوائد الرئيسية:</strong> تقليل هدم العضلات، تسريع التعافي، تخفيف آلام العضلات</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 5-10 جم قبل/أثناء/بعد التمرين</li>
+                                    <li><strong>النسبة المثلى:</strong> 2:1:1 (ليوسين:إيزوليوسين:فاليين)</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول قبل أو أثناء التمرين للطاقة، أو بعد التمرين للتعافي. يذاب في الماء ويمكن تناوله طوال اليوم.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Glutamine -->
+                        <div class="supplement-card sports-card">
+                            <div class="card-image">
+                                <img src="complement/glutamin.jpg" alt="جلوتامين">
+                                <div class="category-badge">تعافي</div>
+                            </div>
+                            <div class="card-header">جلوتامين (Glutamine)</div>
+                            <div class="card-body">
+                                <p>حمض أميني أساسي للتعافي ودعم المناعة.</p>
+                                <ul>
+                                    <li><strong>الفوائد الرئيسية:</strong> تسريع تعافي العضلات، دعم المناعة، تحسين صحة الأمعاء</li>
+                                    <li><strong>الجرعة الموصى بها:</strong> 5-10 جم بعد التمرين أو قبل النوم</li>
+                                    <li><strong>التوقيت:</strong> بعد التمرين مباشرة أو قبل النوم</li>
+                                    <li><strong>الاستخدام:</strong> 10-15 جم يومياً مقسمة على جرعتين</li>
+                                </ul>
+                                <div class="usage-info">
+                                    <h4><i class="fas fa-clock"></i> طريقة الاستخدام المثلى</h4>
+                                    <p>تناول بعد التمرين مباشرة مع البروتين والكربوهيدرات، أو قبل النوم مع الكازين. يذاب في الماء أو العصير.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Guidelines Section -->
+        <section id="guidelines" class="content-section">
+            <h2 class="section-title"><i class="fas fa-clipboard-check"></i> إرشادات استخدام المكملات الرياضية</h2>
+            
+            <div class="guidelines-container">
+                <div class="guideline-card">
+                    <h3><i class="fas fa-calendar-check"></i> توقيت المكملات الرياضية</h3>
+                    <ul>
+                        <li><strong>قبل التمرين (30-60 دقيقة):</strong> كرياتين، BCAA، مكملات الطاقة</li>
+                        <li><strong>بعد التمرين (30 دقيقة):</strong> بروتين الواي، كرياتين، BCAA، جلوتامين</li>
+                        <li><strong>قبل النوم:</strong> بروتين الكازين، جلوتامين، المغنيسيوم</li>
+                        <li><strong>بين الوجبات:</strong> البروتين، أوميغا 3، الفيتامينات المتعددة</li>
+                    </ul>
+                </div>
+                
+                <div class="guideline-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> أخطاء شائعة يجب تجنبها</h3>
+                    <ul>
+                        <li>تناول كميات كبيرة من البروتين تفوق احتياجات الجسم</li>
+                        <li>الاعتماد على المكملات وتجاهل النظام الغذائي الأساسي</li>
+                        <li>خلط عدة مكملات دون معرفة تفاعلاتها</li>
+                        <li>عدم شرب كمية كافية من الماء مع المكملات</li>
+                        <li>التوقف المفاجئ عن المكملات بعد الاستخدام الطويل</li>
+                    </ul>
+                </div>
+                
+                <div class="guideline-card">
+                    <h3><i class="fas fa-check-circle"></i> نصائح للاستخدام الآمن</h3>
+                    <ul>
+                        <li>ابدأ بجرعات صغيرة وزدها تدريجياً</li>
+                        <li>تناول كمية كافية من الماء (3-4 لتر يومياً)</li>
+                        <li>احصل على قسط كافٍ من النوم (7-9 ساعات)</li>
+                        <li>لا تتجاوز الجرعات الموصى بها</li>
+                        <li>خذ فترات راحة من بعض المكملات (الدورة)</li>
+                        <li>راقب جسمك وتوقف عند ظهور أي أعراض جانبية</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sports Supplements Summary -->
+        <section id="summary" class="content-section">
+            <h2 class="section-title sports-title"><i class="fas fa-chart-bar"></i> ملخص المكملات الرياضية الأساسية</h2>
+            
+            <div class="warning-note">
+                <h3><i class="fas fa-dumbbell"></i> ترتيب أهمية المكملات للاعب كمال الأجسام</h3>
+                <p>حسب الإجماع العلمي والخبرة العملية، يمكن ترتيب المكملات حسب أهميتها كالتالي:</p>
+                <ol style="padding-right: 20px; margin-top: 10px;">
+                    <li><strong>البروتين:</strong> أساسي لبناء العضلات والتعافي</li>
+                    <li><strong>الكرياتين:</strong> لزيادة القوة والأداء والكتلة العضلية</li>
+                    <li><strong>مكملات قبل التمرين:</strong> لتحسين الطاقة والأداء (اختياري)</li>
+                    <li><strong>BCAA/جلوتامين:</strong> للتعافي وتقليل الهدم العضلي</li>
+                    <li><strong>الفيتامينات والمعادن:</strong> لدعم الصحة العامة والأداء</li>
+                </ol>
+                <p style="margin-top: 15px;"><strong>تذكر:</strong> النظام الغذائي المتوازن والتمرين المنتظم هما الأساس. المكملات تساعد في تحسين النتائج ولكنها لا تحل محل الأساسيات.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#types"><i class="fas fa-arrow-left"></i> المكملات العامة</a></li>
+                        <li><a href="#sports"><i class="fas fa-arrow-left"></i> المكملات الرياضية</a></li>
+                        <li><a href="#guidelines"><i class="fas fa-arrow-left"></i> إرشادات الاستخدام</a></li>
+                        <li><a href="#summary"><i class="fas fa-arrow-left"></i> الملخص</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>مصادر موثوقة للمعلومات</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> جمعية التغذية الرياضية</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> مجلة الطب الرياضي</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> منظمات الصحة العالمية</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> الجمعيات الطبية المتخصصة</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>نصائح نهائية</h3>
+                    <p>استشر أخصائي تغذية أو مدرب معتمد قبل بدء أي برنامج مكملات. المكملات ليست سحرية - النظام الغذائي والتمرين المنتظم هما الأساس.</p>
+                    <p style="margin-top: 15px;"><i class="fas fa-heartbeat"></i> صحتك أولاً - لا تتجاوز الجرعات الموصى بها</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 دليل المكملات الغذائية والرياضية - جميع المعلومات لأغراض تعليمية فقط ولا تغني عن استشارة الطبيب أو أخصائي التغذية</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', function() {
+                const nav = document.getElementById('mainNav');
+                const icon = document.querySelector('#mobileMenuBtn i');
+                
+                if (nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Tab functionality for sports supplements
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and tab contents
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Show corresponding tab content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

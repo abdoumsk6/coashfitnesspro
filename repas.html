@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans Nutritionnels - Fitness Coach</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    
+    <style>
+        :root {
+            --breakfast: #ff6b6b;
+            --lunch: #4ecdc4;
+            --dinner: #45b7d1;
+            --snack: #96ceb4;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+        
+        .meal-card {
+            border: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .meal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .meal-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+        
+        .breakfast-badge { background-color: var(--breakfast); color: white; }
+        .lunch-badge { background-color: var(--lunch); color: white; }
+        .dinner-badge { background-color: var(--dinner); color: white; }
+        .snack-badge { background-color: var(--snack); color: white; }
+        
+        .nutrition-bar {
+            height: 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        
+        .protein-bar { background-color: #28a745; }
+        .carbs-bar { background-color: #007bff; }
+        .fat-bar { background-color: #ffc107; }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .filter-btn.active {
+            background-color: #667eea !important;
+            color: white !important;
+        }
+        
+        .stats-card {
+            border: none;
+            border-radius: 15px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+     <nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-dumbbell text-danger me-2"></i>
+                <span class="text-primary">FITNESS</span><span class="text-secondary">COACH</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculatrice.html"><i class="fas fa-calculator me-1"></i>Calculatrice</a></li>
+
+
+
+
+                     <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Musculation
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="programesalle.html"> Programme d'entraînement hebdomadaire</a></li>
+            <li><a class="dropdown-item" href="exercices.html">Exercices</a></li>
+            <li><hr class="dropdown-divider"></li>
+           
+          </ul>
+        </li>
+
+
+
+
+                           <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Nutrition
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="repas.html">repas</a></li>
+            <li><a class="dropdown-item" href="compl.html">Compléments Alimentaires</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">information nourriture</a></li>
+          </ul>
+        </li>
+
+                    
+                    <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Overlay de chargement -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="text-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            <h4 class="mt-3">Chargement des plans nutritionnels...</h4>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-white">
+                    <h1 class="display-4 fw-bold mb-4">Plans Nutritionnels</h1>
+                    <p class="lead mb-4">
+                        Découvrez des repas équilibrés adaptés à vos objectifs fitness. 
+                        Que vous cherchiez à perdre du poids, prendre de la masse ou maintenir votre forme.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#filters" class="btn btn-light btn-lg">
+                            <i class="bi bi-funnel me-2"></i>Filtrer
+                        </a>
+                        <a href="#table" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-table me-2"></i>Voir Tableau
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Repas équilibrés" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistiques -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4" id="statsContainer">
+                <!-- Les statistiques seront chargées via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtres -->
+    <section id="filters" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Trouvez le repas parfait</h2>
+            
+            <div class="row g-3 mb-4">
+                <!-- Objectif -->
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-bullseye me-2"></i>Objectif
+                        </h5>
+                        <div class="btn-group-vertical w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary text-start filter-btn" data-filter="all" data-type="objectif">
+                                <i class="bi bi-grid me-2"></i>Tous les objectifs
+                            </button>
+                            <button type="button" class="btn btn-outline-danger text-start filter-btn" data-filter="perte" data-type="objectif">
+                                <i class="bi bi-arrow-down me-2"></i>Perte de poids
+                            </button>
+                            <button type="button" class="btn btn-outline-warning text-start filter-btn" data-filter="maintien" data-type="objectif">
+                                <i class="bi bi-dash-circle me-2"></i>Maintien
+                            </button>
+                            <button type="button" class="btn btn-outline-success text-start filter-btn" data-filter="prise" data-type="objectif">
+                                <i class="bi bi-arrow-up me-2"></i>Prise de masse
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Type de repas -->
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-clock me-2"></i>Type de Repas
+                        </h5>
+                        <div class="btn-group-vertical w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary text-start filter-btn" data-filter="all" data-type="type">
+                                <i class="bi bi-grid me-2"></i>Tous les types
+                            </button>
+                            <button type="button" class="btn btn-outline-warning text-start filter-btn" data-filter="Petit-déjeuner" data-type="type">
+                                <i class="bi bi-sun me-2"></i>Petit-déjeuner
+                            </button>
+                            <button type="button" class="btn btn-outline-info text-start filter-btn" data-filter="Déjeuner" data-type="type">
+                                <i class="bi bi-sun-fill me-2"></i>Déjeuner
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary text-start filter-btn" data-filter="Dîner" data-type="type">
+                                <i class="bi bi-moon me-2"></i>Dîner
+                            </button>
+                            <button type="button" class="btn btn-outline-success text-start filter-btn" data-filter="Collation" data-type="type">
+                                <i class="bi bi-apple me-2"></i>Collation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calories -->
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-fire me-2"></i>Calories
+                        </h5>
+                        <div class="btn-group-vertical w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary text-start filter-btn" data-filter="all" data-type="calories">
+                                <i class="bi bi-grid me-2"></i>Toutes calories
+                            </button>
+                            <button type="button" class="btn btn-outline-success text-start filter-btn" data-filter="low" data-type="calories">
+                                <i class="bi bi-arrow-down me-2"></i>Faible (0-400 kcal)
+                            </button>
+                            <button type="button" class="btn btn-outline-warning text-start filter-btn" data-filter="medium" data-type="calories">
+                                <i class="bi bi-dash me-2"></i>Moyen (401-600 kcal)
+                            </button>
+                            <button type="button" class="btn btn-outline-danger text-start filter-btn" data-filter="high" data-type="calories">
+                                <i class="bi bi-arrow-up me-2"></i>Élevé (600+ kcal)
+                            </button>
+                        </div>
+                        <div class="mt-3">
+                            <label for="calorieRange" class="form-label">Calories max: <span id="calorieValue">800</span> kcal</label>
+                            <input type="range" class="form-range" id="calorieRange" min="100" max="1000" value="800" step="50">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recherche -->
+            <div class="stats-card">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" id="searchMeal" class="form-control" placeholder="Rechercher un repas...">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button id="resetFilters" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-clockwise me-2"></i>Réinitialiser
+                        </button>
+                        <button id="applyFilters" class="btn btn-primary ms-2">
+                            <i class="bi bi-funnel-fill me-2"></i>Appliquer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cartes de repas -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Nos Repas Recommandés</h2>
+            <p class="text-center text-muted mb-5">Cliquez sur un repas pour voir les détails</p>
+            
+            <div id="mealsGrid" class="row g-4">
+                <!-- Les cartes seront chargées via AJAX -->
+            </div>
+            
+            <!-- Message si aucun résultat -->
+            <div id="noResults" class="text-center py-5" style="display: none;">
+                <i class="bi bi-emoji-frown display-1 text-muted mb-3"></i>
+                <h4>Aucun repas trouvé</h4>
+                <p class="text-muted">Essayez de modifier vos filtres de recherche</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tableau DataTables -->
+    <section id="table" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Tableau Comparatif</h2>
+            
+            <div class="stats-card">
+                <table id="mealsTable" class="table table-striped table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Type</th>
+                            <th>Objectif</th>
+                            <th>Calories</th>
+                            <th>Protéines</th>
+                            <th>Glucides</th>
+                            <th>Lipides</th>
+                            <th>Temps</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données seront chargées via AJAX -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Graphiques -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Statistiques Nutritionnelles</h2>
+            
+            <div class="row g-4">
+                <!-- Graphique 1 -->
+                <div class="col-lg-6">
+                    <div class="stats-card">
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-pie-chart me-2"></i>
+                            Répartition par Objectif
+                        </h5>
+                        <div class="chart-container">
+                            <canvas id="goalChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Graphique 2 -->
+                <div class="col-lg-6">
+                    <div class="stats-card">
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-bar-chart me-2"></i>
+                            Calories Moyennes par Type
+                        </h5>
+                        <div class="chart-container">
+                            <canvas id="calorieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="mb-3">
+                        <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+                        Fitness Coach
+                    </h5>
+                    <p class="text-white-75 mb-0">
+                        Nutrition intelligente pour vos objectifs.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="calculatrice.html" class="text-white-50 me-3">
+                        <i class="bi bi-calculator me-1"></i>Calculatrice
+                    </a>
+                    <a href="exercices.html" class="text-white-50 me-3">
+                        <i class="bi bi-activity me-1"></i>Exercices
+                    </a>
+                    <a href="contact.html" class="text-white-50">
+                        <i class="bi bi-chat me-1"></i>Contact
+                    </a>
+                </div>
+            </div>
+            <hr class="bg-light my-3">
+            <p class="text-center text-white-75 mb-0">
+                © 2026 Fitness Coach. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal des détails -->
+    <div class="modal fade" id="mealModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mealModalTitle">Détails du Repas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 id="mealName"></h4>
+                            <p id="mealDescription" class="text-muted"></p>
+                            
+                            <div class="mt-4">
+                                <h6>Informations Nutritionnelles</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="p-3 bg-light rounded mb-2">
+                                            <small class="text-muted">Calories</small>
+                                            <h5 id="mealCalories" class="mb-0"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="p-3 bg-light rounded mb-2">
+                                            <small class="text-muted">Temps</small>
+                                            <h5 id="mealTime" class="mb-0"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Macronutriments</h6>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Protéines</span>
+                                            <span id="mealProtein"></span>
+                                        </div>
+                                        <div class="nutrition-bar protein-bar" id="proteinBar"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Glucides</span>
+                                            <span id="mealCarbs"></span>
+                                        </div>
+                                        <div class="nutrition-bar carbs-bar" id="carbsBar"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Lipides</span>
+                                            <span id="mealFat"></span>
+                                        </div>
+                                        <div class="nutrition-bar fat-bar" id="fatBar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Caractéristiques</h6>
+                                    <p class="mb-1"><strong>Type:</strong> <span id="mealType"></span></p>
+                                    <p class="mb-0"><strong>Objectif:</strong> <span id="mealGoal"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-4">
+                        <i class="bi bi-lightbulb me-2"></i>
+                        <span id="mealAdvice"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="addToPlanBtn">
+                        <i class="bi bi-plus-circle me-2"></i>Ajouter à mon plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Script principal -->
+    <script>
+        // Variables globales
+        let mealsData = [];
+        let mealsTable;
+        let goalChart;
+        let calorieChart;
+        let currentFilters = {
+            objectif: 'all',
+            type: 'all',
+            calories: 'all',
+            maxCalories: 800,
+            search: ''
+        };
+        
+        // Fonction pour charger les données
+        function chargerRepas() {
+            $('#loadingOverlay').show();
+            
+            $.ajax({
+                url: './data/repas.json',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    mealsData = data.repas;
+                    afficherStats(mealsData);
+                    afficherCartesRepas(mealsData);
+                    initialiserTableau(mealsData);
+                    afficherGraphiques(mealsData);
+                    $('#loadingOverlay').hide();
+                },
+                error: function() {
+                    // Données de secours
+                    const donneesSecours = {
+                        repas: [
+                            {
+                                id: 1,
+                                nom: "Omelette aux légumes",
+                                type: "Petit-déjeuner",
+                                calories: 350,
+                                proteines: 30,
+                                glucides: 15,
+                                lipides: 20,
+                                objectif: "perte",
+                                description: "Omelette avec épinards, tomates et fromage allégé",
+                                temps_preparation: "15 min"
+                            },
+                            {
+                                id: 2,
+                                nom: "Salade de poulet",
+                                type: "Déjeuner",
+                                calories: 450,
+                                proteines: 40,
+                                glucides: 25,
+                                lipides: 18,
+                                objectif: "maintien",
+                                description: "Poulet grillé, avocat, laitue et vinaigrette légère",
+                                temps_preparation: "20 min"
+                            }
+                        ]
+                    };
+                    
+                    mealsData = donneesSecours.repas;
+                    afficherStats(mealsData);
+                    afficherCartesRepas(mealsData);
+                    initialiserTableau(mealsData);
+                    $('#loadingOverlay').hide();
+                }
+            });
+        }
+        
+        // Fonction pour afficher les statistiques
+        function afficherStats(repas) {
+            const statsHTML = `
+                <div class="col-md-3 col-6">
+                    <div class="stats-card text-center">
+                        <h3 class="text-primary">${repas.length}</h3>
+                        <p class="text-muted mb-0">Repas Totaux</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card text-center">
+                        <h3 class="text-success">${calculerCaloriesMoyennes(repas)}</h3>
+                        <p class="text-muted mb-0">Calories Moyennes</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card text-center">
+                        <h3 class="text-warning">${compterTypesUniques(repas)}</h3>
+                        <p class="text-muted mb-0">Types de Repas</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card text-center">
+                        <h3 class="text-danger">${compterObjectifsUniques(repas)}</h3>
+                        <p class="text-muted mb-0">Objectifs Différents</p>
+                    </div>
+                </div>
+            `;
+            
+            $('#statsContainer').html(statsHTML);
+        }
+        
+        // Fonction pour calculer les calories moyennes
+        function calculerCaloriesMoyennes(repas) {
+            const total = repas.reduce((sum, repas) => sum + repas.calories, 0);
+            return Math.round(total / repas.length);
+        }
+        
+        // Fonction pour compter les types uniques
+        function compterTypesUniques(repas) {
+            const types = [...new Set(repas.map(r => r.type))];
+            return types.length;
+        }
+        
+        // Fonction pour compter les objectifs uniques
+        function compterObjectifsUniques(repas) {
+            const objectifs = [...new Set(repas.map(r => r.objectif))];
+            return objectifs.length;
+        }
+        
+        // Fonction pour filtrer les repas
+        function filtrerRepas(repas, filters) {
+            return repas.filter(repas => {
+                // Filtre par objectif
+                if (filters.objectif !== 'all' && repas.objectif !== filters.objectif) {
+                    return false;
+                }
+                
+                // Filtre par type
+                if (filters.type !== 'all' && repas.type !== filters.type) {
+                    return false;
+                }
+                
+                // Filtre par calories
+                if (filters.calories !== 'all') {
+                    if (filters.calories === 'low' && repas.calories > 400) return false;
+                    if (filters.calories === 'medium' && (repas.calories <= 400 || repas.calories > 600)) return false;
+                    if (filters.calories === 'high' && repas.calories <= 600) return false;
+                }
+                
+                // Filtre par calories maximum
+                if (repas.calories > filters.maxCalories) {
+                    return false;
+                }
+                
+                // Filtre par recherche
+                if (filters.search && !repas.nom.toLowerCase().includes(filters.search.toLowerCase())) {
+                    return false;
+                }
+                
+                return true;
+            });
+        }
+        
+        // Fonction pour afficher les cartes de repas
+        function afficherCartesRepas(repas) {
+            const filteredMeals = filtrerRepas(repas, currentFilters);
+            const container = $('#mealsGrid');
+            const noResults = $('#noResults');
+            
+            container.empty();
+            
+            if (filteredMeals.length === 0) {
+                noResults.show();
+                return;
+            }
+            
+            noResults.hide();
+            
+            filteredMeals.forEach(repas => {
+                // Couleur selon le type
+                let badgeClass, iconClass;
+                switch(repas.type) {
+                    case 'Petit-déjeuner':
+                        badgeClass = 'breakfast-badge';
+                        iconClass = 'bi-sun text-warning';
+                        break;
+                    case 'Déjeuner':
+                        badgeClass = 'lunch-badge';
+                        iconClass = 'bi-sun-fill text-info';
+                        break;
+                    case 'Dîner':
+                        badgeClass = 'dinner-badge';
+                        iconClass = 'bi-moon text-secondary';
+                        break;
+                    case 'Collation':
+                        badgeClass = 'snack-badge';
+                        iconClass = 'bi-apple text-success';
+                        break;
+                    default:
+                        badgeClass = 'breakfast-badge';
+                        iconClass = 'bi-egg-fried text-warning';
+                }
+                
+                // Couleur selon l'objectif
+                let goalColor, goalText;
+                switch(repas.objectif) {
+                    case 'perte':
+                        goalColor = 'danger';
+                        goalText = 'Perte de poids';
+                        break;
+                    case 'maintien':
+                        goalColor = 'warning';
+                        goalText = 'Maintien';
+                        break;
+                    case 'prise':
+                        goalColor = 'success';
+                        goalText = 'Prise de masse';
+                        break;
+                }
+                
+                const cardHTML = `
+                    <div class="col-md-4 col-lg-3">
+                        <div class="meal-card bg-white shadow" data-id="${repas.id}">
+                            <div class="position-relative">
+                                <div class="${badgeClass} meal-badge">
+                                    <i class="bi ${iconClass} me-1"></i>${repas.type}
+                                </div>
+                                <div class="p-4">
+                                    <h5 class="fw-bold mb-2">${repas.nom}</h5>
+                                    <p class="text-muted small mb-3">${repas.description.substring(0, 60)}...</p>
+                                    
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <small class="text-muted">Calories</small>
+                                            <span class="fw-bold text-primary">${repas.calories} kcal</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 style="width: ${(repas.calories / 1000) * 100}%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between small mb-3">
+                                        <div class="text-center">
+                                            <div class="fw-bold text-success">${repas.proteines}g</div>
+                                            <div class="text-muted">Protéines</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="fw-bold text-primary">${repas.glucides}g</div>
+                                            <div class="text-muted">Glucides</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="fw-bold text-warning">${repas.lipides}g</div>
+                                            <div class="text-muted">Lipides</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-${goalColor}">${goalText}</span>
+                                        <button class="btn btn-sm btn-outline-primary btn-details" data-id="${repas.id}">
+                                            <i class="bi bi-info-circle"></i> Détails
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.append(cardHTML);
+            });
+            
+            // Événement pour les boutons détails
+            $('.btn-details').off('click').on('click', function(e) {
+                e.stopPropagation();
+                const id = $(this).data('id');
+                afficherDetailsRepas(id);
+            });
+            
+            // Événement pour cliquer sur la carte
+            $('.meal-card').off('click').on('click', function() {
+                const id = $(this).data('id');
+                afficherDetailsRepas(id);
+            });
+        }
+        
+        // Fonction pour afficher les détails d'un repas
+        function afficherDetailsRepas(id) {
+            const repas = mealsData.find(r => r.id == id);
+            if (!repas) return;
+            
+            // Mettre à jour le modal
+            $('#mealModalTitle').text(repas.nom);
+            $('#mealName').text(repas.nom);
+            $('#mealDescription').text(repas.description);
+            $('#mealCalories').text(repas.calories + ' kcal');
+            $('#mealTime').text(repas.temps_preparation);
+            $('#mealProtein').text(repas.proteines + ' g');
+            $('#mealCarbs').text(repas.glucides + ' g');
+            $('#mealFat').text(repas.lipides + ' g');
+            $('#mealType').text(repas.type);
+            
+            // Objectif en texte
+            let goalText;
+            switch(repas.objectif) {
+                case 'perte': goalText = 'Perte de poids'; break;
+                case 'maintien': goalText = 'Maintien du poids'; break;
+                case 'prise': goalText = 'Prise de masse'; break;
+                default: goalText = repas.objectif;
+            }
+            $('#mealGoal').text(goalText);
+            
+            // Barres de progression
+            const totalMacros = repas.proteines + repas.glucides + repas.lipides;
+            $('#proteinBar').css('width', (repas.proteines / totalMacros * 100) + '%');
+            $('#carbsBar').css('width', (repas.glucides / totalMacros * 100) + '%');
+            $('#fatBar').css('width', (repas.lipides / totalMacros * 100) + '%');
+            
+            // Conseil personnalisé
+            let advice;
+            if (repas.objectif === 'perte') {
+                advice = 'Idéal pour un régime hypocalorique. Combine bien avec des exercices cardio.';
+            } else if (repas.objectif === 'prise') {
+                advice = 'Parfait pour la construction musculaire. Prendre après l\'entraînement.';
+            } else {
+                advice = 'Repas équilibré pour maintenir votre poids actuel.';
+            }
+            $('#mealAdvice').text(advice);
+            
+            // Afficher le modal
+            const modal = new bootstrap.Modal(document.getElementById('mealModal'));
+            modal.show();
+        }
+        
+        // Fonction pour initialiser le tableau DataTables
+        function initialiserTableau(repas) {
+            if ($.fn.DataTable.isDataTable('#mealsTable')) {
+                mealsTable.destroy();
+            }
+            
+            const tableData = repas.map(repas => [
+                repas.id,
+                repas.nom,
+                repas.type,
+                repas.objectif === 'perte' ? 'Perte de poids' : 
+                repas.objectif === 'maintien' ? 'Maintien' : 'Prise de masse',
+                repas.calories,
+                repas.proteines,
+                repas.glucides,
+                repas.lipides,
+                repas.temps_preparation
+            ]);
+            
+            mealsTable = $('#mealsTable').DataTable({
+                data: tableData,
+                columns: [
+                    { title: "ID", className: "text-center" },
+                    { title: "Nom", className: "fw-bold" },
+                    { title: "Type" },
+                    { title: "Objectif" },
+                    { 
+                        title: "Calories", 
+                        className: "text-center",
+                        render: function(data) {
+                            return `<span class="badge bg-primary">${data} kcal</span>`;
+                        }
+                    },
+                    { 
+                        title: "Protéines", 
+                        className: "text-center",
+                        render: function(data) {
+                            return `<span class="text-success fw-bold">${data}g</span>`;
+                        }
+                    },
+                    { 
+                        title: "Glucides", 
+                        className: "text-center",
+                        render: function(data) {
+                            return `<span class="text-primary fw-bold">${data}g</span>`;
+                        }
+                    },
+                    { 
+                        title: "Lipides", 
+                        className: "text-center",
+                        render: function(data) {
+                            return `<span class="text-warning fw-bold">${data}g</span>`;
+                        }
+                    },
+                    { title: "Temps", className: "text-center" }
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json'
+                },
+                pageLength: 10,
+                responsive: true,
+                order: [[0, 'asc']]
+            });
+        }
+        
+        // Fonction pour afficher les graphiques
+        function afficherGraphiques(repas) {
+            // Graphique 1: Répartition par objectif
+            const goalCtx = document.getElementById('goalChart').getContext('2d');
+            const goalCounts = {
+                perte: repas.filter(r => r.objectif === 'perte').length,
+                maintien: repas.filter(r => r.objectif === 'maintien').length,
+                prise: repas.filter(r => r.objectif === 'prise').length
+            };
+            
+            if (goalChart) goalChart.destroy();
+            
+            goalChart = new Chart(goalCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Perte de poids', 'Maintien', 'Prise de masse'],
+                    datasets: [{
+                        data: [goalCounts.perte, goalCounts.maintien, goalCounts.prise],
+                        backgroundColor: ['#dc3545', '#ffc107', '#28a745'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            // Graphique 2: Calories moyennes par type
+            const calorieCtx = document.getElementById('calorieChart').getContext('2d');
+            const types = ['Petit-déjeuner', 'Déjeuner', 'Dîner', 'Collation'];
+            const avgCalories = types.map(type => {
+                const typeMeals = repas.filter(r => r.type === type);
+                if (typeMeals.length === 0) return 0;
+                const total = typeMeals.reduce((sum, r) => sum + r.calories, 0);
+                return Math.round(total / typeMeals.length);
+            });
+            
+            if (calorieChart) calorieChart.destroy();
+            
+            calorieChart = new Chart(calorieCtx, {
+                type: 'bar',
+                data: {
+                    labels: types,
+                    datasets: [{
+                        label: 'Calories moyennes',
+                        data: avgCalories,
+                        backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Calories'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Gestion des filtres
+        $(document).ready(function() {
+            // Charger les données
+            chargerRepas();
+            
+            // Slider des calories
+            $('#calorieRange').on('input', function() {
+                $('#calorieValue').text($(this).val());
+                currentFilters.maxCalories = parseInt($(this).val());
+            });
+            
+            // Boutons de filtre
+            $('.filter-btn').on('click', function() {
+                const type = $(this).data('type');
+                const filter = $(this).data('filter');
+                
+                // Désactiver tous les boutons de ce type
+                $(`.filter-btn[data-type="${type}"]`).removeClass('active');
+                
+                // Activer ce bouton
+                $(this).addClass('active');
+                
+                // Mettre à jour les filtres
+                currentFilters[type] = filter;
+            });
+            
+            // Recherche
+            $('#searchMeal').on('keyup', function() {
+                currentFilters.search = $(this).val();
+            });
+            
+            // Appliquer les filtres
+            $('#applyFilters').on('click', function() {
+                afficherCartesRepas(mealsData);
+            });
+            
+            // Réinitialiser les filtres
+            $('#resetFilters').on('click', function() {
+                currentFilters = {
+                    objectif: 'all',
+                    type: 'all',
+                    calories: 'all',
+                    maxCalories: 800,
+                    search: ''
+                };
+                
+                // Réinitialiser l'interface
+                $('.filter-btn').removeClass('active');
+                $('.filter-btn[data-filter="all"]').addClass('active');
+                $('#searchMeal').val('');
+                $('#calorieRange').val(800);
+                $('#calorieValue').text('800');
+                
+                afficherCartesRepas(mealsData);
+            });
+            
+            // Ajouter au plan
+            $('#addToPlanBtn').on('click', function() {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('mealModal'));
+                const mealName = $('#mealName').text();
+                
+                alert(`Le repas "${mealName}" a été ajouté à votre plan nutritionnel !`);
+                modal.hide();
+            });
+            
+            // Activer le premier filtre de chaque groupe
+            $('.filter-btn[data-filter="all"]').addClass('active');
+        });
+    </script>
+</body>
+</html>

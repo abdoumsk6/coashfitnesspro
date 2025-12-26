@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المغذيات الأساسية: مصادر البروتين، الكربوهيدرات والدهون الصحية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --protein-color: #3498db;
+            --carbs-color: #2ecc71;
+            --fats-color: #e74c3c;
+            --light-color: #f9f9f9;
+            --dark-color: #283d53;
+            --text-color: #333;
+            --border-radius: 12px;
+            --box-shadow: 0 6px 20px rgba(7, 7, 7, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+        
+        .container {
+            
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--protein-color), var(--carbs-color), var(--fats-color));
+            color: white;
+            padding: 25px 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            background-color: white;
+            padding: 12px;
+            border-radius: 50%;
+            color: var(--dark-color);
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: rgb(20, 19, 19);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(150, 85, 187, 0.9), rgba(92, 76, 233, 0.85)), url('noriture/bk.avif');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 90px 20px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .macros-summary {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .macro-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .macro-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .macro-item.protein { border-top: 5px solid var(--protein-color); }
+        .macro-item.carbs { border-top: 5px solid var(--carbs-color); }
+        .macro-item.fats { border-top: 5px solid var(--fats-color); }
+        
+        /* Main Content */
+        .content-section {
+            margin-bottom: 70px;
+        }
+        
+        .section-title {
+            color: var(--dark-color);
+            border-right: 6px solid;
+            padding-right: 20px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 2.2rem;
+        }
+        
+        .protein-title { border-color: var(--protein-color); }
+        .carbs-title { border-color: var(--carbs-color); }
+        .fats-title { border-color: var(--fats-color); }
+        
+        .section-title i {
+            font-size: 2.5rem;
+        }
+        
+        .protein-title i { color: var(--protein-color); }
+        .carbs-title i { color: var(--carbs-color); }
+        .fats-title i { color: var(--fats-color); }
+        
+        /* Nutrition Cards */
+        .nutrients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .nutrient-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nutrient-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .nutrient-card:hover .card-image img {
+            transform: scale(1.08);
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .protein-badge { background-color: var(--protein-color); }
+        .carbs-badge { background-color: var(--carbs-color); }
+        .fats-badge { background-color: var(--fats-color); }
+        
+        .card-header {
+            padding: 25px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .protein-header { color: var(--protein-color); }
+        .carbs-header { color: var(--carbs-color); }
+        .fats-header { color: var(--fats-color); }
+        
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nutrition-facts {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border-right: 4px solid;
+        }
+        
+        .protein-facts { border-color: var(--protein-color); }
+        .carbs-facts { border-color: var(--carbs-color); }
+        .fats-facts { border-color: var(--fats-color); }
+        
+        .nutrition-facts h4 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nutrition-facts ul {
+            padding-right: 20px;
+        }
+        
+        .nutrition-facts li {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .nutrition-facts .value {
+            font-weight: bold;
+        }
+        
+        .benefits-list {
+            padding-right: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-right: 10px;
+        }
+        
+        .benefits-list li:before {
+            content: "✓";
+            position: absolute;
+            right: -15px;
+            color: #27ae32;
+            font-weight: bold;
+        }
+        
+        .protein-list li:before { color: var(--protein-color); }
+        .carbs-list li:before { color: var(--carbs-color); }
+        .fats-list li:before { color: var(--fats-color); }
+        
+        .serving-info {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: auto;
+            border-right: 3px solid #3498db;
+        }
+        
+        /* Comparison Table */
+        .comparison-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 50px;
+        }
+        
+        .comparison-section h2 {
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .comparison-table th {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .macro-label {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .protein-label { background-color: var(--protein-color); }
+        .carbs-label { background-color: var(--carbs-color); }
+        .fats-label { background-color: var(--fats-color); }
+        
+        /* Daily Requirements */
+        .requirements-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .requirement-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border-top: 5px solid;
+        }
+        
+        .protein-req { border-color: var(--protein-color); }
+        .carbs-req { border-color: var(--carbs-color); }
+        .fats-req { border-color: var(--fats-color); }
+        
+        .requirement-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .requirement-card h3 i {
+            font-size: 1.8rem;
+        }
+        
+        .requirement-card ul {
+            padding-right: 20px;
+        }
+        
+        .requirement-card li {
+            margin-bottom: 12px;
+            padding-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 25px;
+            margin-top: 70px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: #3498db;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 12px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+            padding-right: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.9rem;
+            }
+            
+            .nutrients-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .requirements-section {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+            
+            nav a {
+                display: block;
+                text-align: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 25px;
+                left: 25px;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .hero {
+                padding: 70px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .macro-item {
+                min-width: 150px;
+            }
+            
+            .comparison-section {
+                padding: 25px 15px;
+                overflow-x: auto;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .requirements-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nutrients-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .macro-item {
+                min-width: 100%;
+            }
+            
+            .macros-summary {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-apple-alt"></i>
+                    <span>المغذيات الأساسية</span>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav class="mobile-menu" id="mainNav">
+                    <ul>
+                         <li><a href="index.html" class="btn btn-outline-primary me-2">
+                    <i class="bi bi-house"></i> Accueil
+                </a></li>
+                        <li><a href="#protein"><i class="fas fa-drumstick-bite"></i> البروتين</a></li>
+                        <li><a href="#carbs"><i class="fas fa-bread-slice"></i> الكربوهيدرات</a></li>
+                        <li><a href="#fats"><i class="fas fa-oil-can"></i> الدهون الصحية</a></li>
+                        <li><a href="#comparison"><i class="fas fa-balance-scale"></i> مقارنة</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>المغذيات الأساسية: مصادرها وقيمها الغذائية</h1>
+            <p>دليل شامل لأهم مصادر البروتين، الكربوهيدرات المعقدة، والدهون الصحية مع تفصيل القيم الغذائية لكل مصدر</p>
+            
+            <div class="macros-summary">
+                <div class="macro-item protein">
+                    <h3>البروتين</h3>
+                    <p>لبناء الأنسجة وإصلاحها</p>
+                    <p>1 جرام = 4 سعرات</p>
+                </div>
+                <div class="macro-item carbs">
+                    <h3>الكربوهيدرات</h3>
+                    <p>مصدر الطاقة الرئيسي</p>
+                    <p>1 جرام = 4 سعرات</p>
+                </div>
+                <div class="macro-item fats">
+                    <h3>الدهون الصحية</h3>
+                    <p>للوظائف الحيوية</p>
+                    <p>1 جرام = 9 سعرات</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Protein Sources Section -->
+        <section id="protein" class="content-section">
+            <h2 class="section-title protein-title"><i class="fas fa-drumstick-bite"></i> مصادر البروتين عالية الجودة</h2>
+            <p style="margin-bottom: 30px; font-size: 1.2rem; color: #555;">البروتين أساسي لبناء العضلات، إصلاح الأنسجة، وإنتاج الإنزيمات والهرمونات. البروتينات الكاملة تحتوي على جميع الأحماض الأمينية الأساسية.</p>
+            
+            <div class="nutrients-grid">
+                <!-- Chicken Breast -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/scalope.webp" alt="صدر دجاج">
+                        <div class="category-badge protein-badge">بروتين حيواني</div>
+                    </div>
+                    <div class="card-header protein-header">صدر دجاج (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts protein-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">165 سعرة</span></li>
+                                <li>البروتين: <span class="value">31 جرام</span></li>
+                                <li>الدهون: <span class="value">3.6 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">0 جرام</span></li>
+                                <li>الحديد: <span class="value">1 ملجم</span></li>
+                                <li>فيتامين ب6: <span class="value">0.5 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--protein-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list protein-list">
+                            <li>بروتين كامل يحتوي على جميع الأحماض الأمينية الأساسية</li>
+                            <li>قليل الدهون (خاصة عند إزالة الجلد)</li>
+                            <li>غني بفيتامينات ب المهمة للطاقة</li>
+                            <li>يساعد في بناء العضلات والحفاظ عليها</li>
+                            <li>يعزز الشعور بالشبع لفترة أطول</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اختر صدر الدجاج المشوي أو المسلوق بدلاً من المقلي للحد من الدهون المشبعة.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Salmon -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/سمك السلمون.jpg" alt="سمك السلمون">
+                        <div class="category-badge protein-badge">بروتين حيواني</div>
+                    </div>
+                    <div class="card-header protein-header">سمك السلمون (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts protein-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">208 سعرة</span></li>
+                                <li>البروتين: <span class="value">20 جرام</span></li>
+                                <li>الدهون: <span class="value">13 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">0 جرام</span></li>
+                                <li>أوميغا 3: <span class="value">2.3 جرام</span></li>
+                                <li>فيتامين د: <span class="value">570 وحدة</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--protein-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list protein-list">
+                            <li>مصدر ممتاز لأحماض أوميغا 3 الدهنية</li>
+                            <li>غني بفيتامين د المهم لصحة العظام</li>
+                            <li>يحتوي على السيلينيوم المضاد للأكسدة</li>
+                            <li>يدعم صحة القلب والدماغ</li>
+                            <li>يقلل الالتهابات في الجسم</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اختر سلمون بري عند الإمكان، وتناوله مشوياً أو مطهياً على البخار للحفاظ على قيمته الغذائية.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lentils -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/3daasd.jpg" alt="عدس">
+                        <div class="category-badge protein-badge">بروتين نباتي</div>
+                    </div>
+                    <div class="card-header protein-header">العدس المطبوخ (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts protein-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">116 سعرة</span></li>
+                                <li>البروتين: <span class="value">9 جرام</span></li>
+                                <li>الدهون: <span class="value">0.4 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">20 جرام</span></li>
+                                <li>الألياف: <span class="value">8 جرام</span></li>
+                                <li>الحديد: <span class="value">3.3 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--protein-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list protein-list">
+                            <li>مصدر ممتاز للألياف الغذائية</li>
+                            <li>غني بالحديد (خاصة للأنظمة النباتية)</li>
+                            <li>قليل الدهون وخالي من الكوليسترول</li>
+                            <li>يساعد في تنظيم سكر الدم</li>
+                            <li>يعزز صحة الجهاز الهضمي</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اجمع العدس مع الحبوب الكاملة (كالأرز البني) للحصول على بروتين كامل يحتوي على جميع الأحماض الأمينية.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Greek Yogurt -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/الزبادي اليوناني.jpeg" alt="زبادي يوناني">
+                        <div class="category-badge protein-badge">بروتين حيواني</div>
+                    </div>
+                    <div class="card-header protein-header">الزبادي اليوناني (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts protein-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">59 سعرة</span></li>
+                                <li>البروتين: <span class="value">10 جرام</span></li>
+                                <li>الدهون: <span class="value">0.4 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">3.6 جرام</span></li>
+                                <li>الكالسيوم: <span class="value">110 ملجم</span></li>
+                                <li>البروبيوتيك: <span class="value">مليارات</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--protein-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list protein-list">
+                            <li>مصدر غني بالبروتين والكالسيوم</li>
+                            <li>يحتوي على بكتيريا البروبيوتيك النافعة</li>
+                            <li>يساعد في الهضم وصحة الأمعاء</li>
+                            <li>يدعم صحة العظام والأسنان</li>
+                            <li>خيار جيد لوجبات خفيفة منخفضة السعرات</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اختر الزبادي اليوناني غير المحلى وأضف إليه الفواكه الطازجة والمكسرات لوجبة متكاملة.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carbs Sources Section -->
+        <section id="carbs" class="content-section">
+            <h2 class="section-title carbs-title"><i class="fas fa-bread-slice"></i> مصادر الكربوهيدرات المعقدة</h2>
+            <p style="margin-bottom: 30px; font-size: 1.2rem; color: #555;">الكربوهيدرات المعقدة توفر طاقة مستدامة، غنية بالألياف، وتساعد في تنظيم سكر الدم. اختر الحبوب الكاملة بدلاً من المصادر المكررة.</p>
+            
+            <div class="nutrients-grid">
+                <!-- Quinoa -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/quinoa 2.jpg" alt="الكينوا">
+                        <div class="category-badge carbs-badge">كربوهيدرات معقدة</div>
+                    </div>
+                    <div class="card-header carbs-header">الكينوا المطبوخة (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts carbs-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">120 سعرة</span></li>
+                                <li>البروتين: <span class="value">4.4 جرام</span></li>
+                                <li>الدهون: <span class="value">1.9 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">21 جرام</span></li>
+                                <li>الألياف: <span class="value">2.8 جرام</span></li>
+                                <li>الحديد: <span class="value">1.5 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--carbs-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list carbs-list">
+                            <li>بروتين كامل (نادر في المصادر النباتية)</li>
+                            <li>خالية من الجلوتين (مناسبة لمرضى السيلياك)</li>
+                            <li>غنية بمضادات الأكسدة</li>
+                            <li>مؤشر جلايسيمي منخفض</li>
+                            <li>غنية بالمغنيسيوم والفوسفور</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اغسل الكينوا جيداً قبل الطهي لإزالة الصابونين الطبيعي الذي يعطيها طعماً مراً.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sweet Potato -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/البطاطا الحلوة.webp" alt="البطاطا الحلوة">
+                        <div class="category-badge carbs-badge">كربوهيدرات معقدة</div>
+                    </div>
+                    <div class="card-header carbs-header">البطاطا الحلوة (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts carbs-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">86 سعرة</span></li>
+                                <li>البروتين: <span class="value">1.6 جرام</span></li>
+                                <li>الدهون: <span class="value">0.1 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">20 جرام</span></li>
+                                <li>الألياف: <span class="value">3 جرام</span></li>
+                                <li>فيتامين أ: <span class="value">14187 وحدة</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--carbs-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list carbs-list">
+                            <li>مصدر ممتاز للبيتا كاروتين (فيتامين أ)</li>
+                            <li>غنية بالألياف الغذائية</li>
+                            <li>تحتوي على مضادات أكسدة قوية</li>
+                            <li>مؤشر جلايسيمي أقل من البطاطس العادية</li>
+                            <li>تدعم صحة العيون والجلد</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اختر البطاطا الحلوة المخبوزة أو المسلوقة مع قشرتها للحفاظ على الألياف والعناصر الغذائية.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Oats -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/لشوفان.webp" alt="الشوفان">
+                        <div class="category-badge carbs-badge">كربوهيدرات معقدة</div>
+                    </div>
+                    <div class="card-header carbs-header">الشوفان (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts carbs-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">389 سعرة</span></li>
+                                <li>البروتين: <span class="value">16.9 جرام</span></li>
+                                <li>الدهون: <span class="value">6.9 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">66 جرام</span></li>
+                                <li>الألياف: <span class="value">10.6 جرام</span></li>
+                                <li>المنغنيز: <span class="value">4.9 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--carbs-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list carbs-list">
+                            <li>مصدر غني بالألياف القابلة للذوبان (بيتا جلوكان)</li>
+                            <li>يساعد في خفض الكوليسترول الضار</li>
+                            <li>يعزز الشعور بالشبع لفترة أطول</li>
+                            <li>يدعم صحة القلب والأوعية الدموية</li>
+                            <li>ينظم مستويات السكر في الدم</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> اختر الشوفان الكامل (الخرطال) بدلاً من الشوفان الفوري للحصول على أكبر فائدة غذائية.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Brown Rice -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/الأرز البني المطبوخ.jpg" alt="الأرز البني">
+                        <div class="category-badge carbs-badge">كربوهيدرات معقدة</div>
+                    </div>
+                    <div class="card-header carbs-header">الأرز البني المطبوخ (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts carbs-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">111 سعرة</span></li>
+                                <li>البروتين: <span class="value">2.6 جرام</span></li>
+                                <li>الدهون: <span class="value">0.9 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">23 جرام</span></li>
+                                <li>الألياف: <span class="value">1.8 جرام</span></li>
+                                <li>المنغنيز: <span class="value">0.9 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--carbs-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list carbs-list">
+                            <li>يحتفظ بالنخالة والجنين (عكس الأرز الأبيض)</li>
+                            <li>مصدر جيد للمغنيسيوم والفوسفور</li>
+                            <li>يحتوي على مضادات أكسدة</li>
+                            <li>يساعد في السيطرة على الوزن</li>
+                            <li>يدعم صحة الجهاز الهضمي</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> انقع الأرز البني لمدة 30 دقيقة قبل الطهي لتقليل وقت الطهي وتحسين القوام.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fats Sources Section -->
+        <section id="fats" class="content-section">
+            <h2 class="section-title fats-title"><i class="fas fa-oil-can"></i> مصادر الدهون الصحية</h2>
+            <p style="margin-bottom: 30px; font-size: 1.2rem; color: #555;">الدهون الصحية ضرورية لامتصاص الفيتامينات، صحة الدماغ، والهرمونات. ركز على الدهون غير المشبعة وتجنب الدهون المتحولة.</p>
+            
+            <div class="nutrients-grid">
+                <!-- Avocado -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/الأفوكادو.jpg" alt="الأفوكادو">
+                        <div class="category-badge fats-badge">دهون صحية</div>
+                    </div>
+                    <div class="card-header fats-header">الأفوكادو (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts fats-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">160 سعرة</span></li>
+                                <li>البروتين: <span class="value">2 جرام</span></li>
+                                <li>الدهون: <span class="value">15 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">9 جرام</span></li>
+                                <li>الألياف: <span class="value">7 جرام</span></li>
+                                <li>البوتاسيوم: <span class="value">485 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--fats-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list fats-list">
+                            <li>غني بالدهون الأحادية غير المشبعة الصحية للقلب</li>
+                            <li>مصدر ممتاز للبوتاسيوم (أكثر من الموز)</li>
+                            <li>يحتوي على مضادات أكسدة قوية (لوتين)</li>
+                            <li>يساعد في امتصاص العناصر الغذائية الذاتية في الدهون</li>
+                            <li>يدعم صحة الجلد والشعر</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> أضف الأفوكادو إلى السلطات، السندويشات، أو استخدمه كبديل صحي للمايونيز.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Almonds -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/اللوز.jpg" alt="لوز">
+                        <div class="category-badge fats-badge">دهون صحية</div>
+                    </div>
+                    <div class="card-header fats-header">اللوز (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts fats-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">579 سعرة</span></li>
+                                <li>البروتين: <span class="value">21 جرام</span></li>
+                                <li>الدهون: <span class="value">50 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">22 جرام</span></li>
+                                <li>الألياف: <span class="value">12.5 جرام</span></li>
+                                <li>فيتامين هـ: <span class="value">26 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--fats-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list fats-list">
+                            <li>مصدر ممتاز لفيتامين هـ المضاد للأكسدة</li>
+                            <li>غني بالمغنيسيوم المهم لوظائف العضلات والأعصاب</li>
+                            <li>يحتوي على ألياف تعزز الشعور بالشبع</li>
+                            <li>يدعم صحة القلب والكوليسترول الجيد</li>
+                            <li>يساعد في السيطرة على سكر الدم</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> تناول حفنة (حوالي 28 جرام) من اللوز يومياً كوجبة خفيفة. يفضل اللوز النيء غير المملح.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Olive Oil -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/زيت الزيتون البكر.jpg" alt="زيت الزيتون">
+                        <div class="category-badge fats-badge">دهون صحية</div>
+                    </div>
+                    <div class="card-header fats-header">زيت الزيتون البكر (ملعقة كبيرة)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts fats-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">119 سعرة</span></li>
+                                <li>البروتين: <span class="value">0 جرام</span></li>
+                                <li>الدهون: <span class="value">14 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">0 جرام</span></li>
+                                <li>فيتامين ك: <span class="value">8 ميكروجرام</span></li>
+                                <li>فيتامين هـ: <span class="value">2 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--fats-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list fats-list">
+                            <li>غني بالدهون الأحادية غير المشبعة</li>
+                            <li>يحتوي على مضادات أكسدة قوية (بوليفينول)</li>
+                            <li>له خصائص مضادة للالتهابات</li>
+                            <li>يساعد في خفض ضغط الدم</li>
+                            <li>يرتبط بانخفاض خطر الإصابة بأمراض القلب</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> استخدم زيت الزيتون البكر الممتاز للسلطات والتتبيلات. لا تستخدمه للقلي العميق في درجات حرارة عالية.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chia Seeds -->
+                <div class="nutrient-card">
+                    <div class="card-image">
+                        <img src="noriture/بذور الشيا.webp" alt="بذور الشيا">
+                        <div class="category-badge fats-badge">دهون صحية</div>
+                    </div>
+                    <div class="card-header fats-header">بذور الشيا (100 جرام)</div>
+                    <div class="card-body">
+                        <div class="nutrition-facts fats-facts">
+                            <h4><i class="fas fa-clipboard-list"></i> القيم الغذائية</h4>
+                            <ul>
+                                <li>السعرات الحرارية: <span class="value">486 سعرة</span></li>
+                                <li>البروتين: <span class="value">17 جرام</span></li>
+                                <li>الدهون: <span class="value">31 جرام</span></li>
+                                <li>الكربوهيدرات: <span class="value">42 جرام</span></li>
+                                <li>الألياف: <span class="value">34 جرام</span></li>
+                                <li>الكالسيوم: <span class="value">631 ملجم</span></li>
+                            </ul>
+                        </div>
+                        
+                        <h4 style="margin: 20px 0 10px; color: var(--fats-color);"><i class="fas fa-check-circle"></i> الفوائد الصحية</h4>
+                        <ul class="benefits-list fats-list">
+                            <li>مصدر ممتاز لأحماض أوميغا 3 الدهنية</li>
+                            <li>غنية بالألياف القابلة للذوبان وغير القابلة للذوبان</li>
+                            <li>تحتوي على نسبة عالية من الكالسيوم النباتي</li>
+                            <li>تساعد في تنظيم سكر الدم</li>
+                            <li>تعزز الشعور بالشبع لفترة أطول</li>
+                        </ul>
+                        
+                        <div class="serving-info">
+                            <strong><i class="fas fa-utensils"></i> نصيحة:</strong> انقع بذور الشيا في سائل (ماء، حليب، عصير) لمدة 10-15 دقيقة حتى تتشكل جل صحي يمكن إضافته للعصائر والحلويات.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="comparison-section">
+            <h2><i class="fas fa-balance-scale"></i> مقارنة بين مصادر المغذيات الثلاثة</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>المغذي</th>
+                        <th>أفضل المصادر</th>
+                        <th>الاحتياجات اليومية للبالغين</th>
+                        <th>وظائف رئيسية</th>
+                        <th>نصيحة للاختيار</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="macro-label protein-label">البروتين</span></td>
+                        <td>الدجاج، السمك، البيض، العدس، الفول</td>
+                        <td>0.8 جم لكل كجم من وزن الجسم<br>(56 جم لشخص 70 كجم)</td>
+                        <td>بناء الأنسجة، الإنزيمات، الهرمونات، المناعة</td>
+                        <td>تنويع بين مصادر حيوانية ونباتية</td>
+                    </tr>
+                    <tr>
+                        <td><span class="macro-label carbs-label">الكربوهيدرات</span></td>
+                        <td>الشوفان، الكينوا، البطاطا الحلوة، الفواكه</td>
+                        <td>45-65% من إجمالي السعرات<br>(225-325 جم لـ 2000 سعرة)</td>
+                        <td>مصدر الطاقة الرئيسي، صحة الجهاز الهضمي</td>
+                        <td>اختر الحبوب الكاملة بدلاً من المكررة</td>
+                    </tr>
+                    <tr>
+                        <td><span class="macro-label fats-label">الدهون الصحية</span></td>
+                        <td>الأفوكادو، المكسرات، زيت الزيتون، الأسماك الدهنية</td>
+                        <td>20-35% من إجمالي السعرات<br>(44-78 جم لـ 2000 سعرة)</td>
+                        <td>امتصاص الفيتامينات، الهرمونات، صحة الدماغ</td>
+                        <td>ركز على الدهون غير المشبعة وتجنب المتحولة</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="requirements-section">
+                <div class="requirement-card protein-req">
+                    <h3><i class="fas fa-drumstick-bite" style="color: var(--protein-color);"></i> احتياجات البروتين اليومية</h3>
+                    <ul>
+                        <li><strong>شخص غير نشط:</strong> 0.8 جم لكل كجم من وزن الجسم</li>
+                        <li><strong>رياضي معتدل النشاط:</strong> 1.2-1.4 جم لكل كجم</li>
+                        <li><strong>رياضي عالي الكثافة:</strong> 1.6-2.2 جم لكل كجم</li>
+                        <li><strong>كبار السن:</strong> 1-1.2 جم لكل كجم للحفاظ على الكتلة العضلية</li>
+                        <li><strong>الحوامل والمرضعات:</strong> زيادة 25 جم عن الاحتياجات العادية</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card carbs-req">
+                    <h3><i class="fas fa-bread-slice" style="color: var(--carbs-color);"></i> توزيع الكربوهيدرات</h3>
+                    <ul>
+                        <li><strong>كربوهيدرات معقدة:</strong> 80-90% من إجمالي الكربوهيدرات</li>
+                        <li><strong>كربوهيدرات بسيطة:</strong> 10-20% (من الفواكه والحلويات الطبيعية)</li>
+                        <li><strong>الألياف الغذائية:</strong> 25-30 جم يومياً للبالغين</li>
+                        <li><strong>قبل التمرين:</strong> كربوهيدرات معقدة (1-4 ساعات قبل)</li>
+                        <li><strong>بعد التمرين:</strong> كربوهيدرات بسيطة لتعويض الجلايكوجين</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card fats-req">
+                    <h3><i class="fas fa-oil-can" style="color: var(--fats-color);"></i> توزيع الدهون الصحية</h3>
+                    <ul>
+                        <li><strong>دهون أحادية غير مشبعة:</strong> 15-20% من إجمالي السعرات</li>
+                        <li><strong>دهون متعددة غير مشبعة:</strong> 5-10% من إجمالي السعرات</li>
+                        <li><strong>دهون مشبعة:</strong> أقل من 10% من إجمالي السعرات</li>
+                        <li><strong>دهون متحولة:</strong> أقل قدر ممكن (يفضل صفر)</li>
+                        <li><strong>أوميغا 3:</strong> 250-500 مجم يومياً من EPA+DHA</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>المصادر المغذية</h3>
+                    <ul class="footer-links">
+                        <li><a href="#protein"><i class="fas fa-arrow-left"></i> مصادر البروتين</a></li>
+                        <li><a href="#carbs"><i class="fas fa-arrow-left"></i> مصادر الكربوهيدرات</a></li>
+                        <li><a href="#fats"><i class="fas fa-arrow-left"></i> مصادر الدهون الصحية</a></li>
+                        <li><a href="#comparison"><i class="fas fa-arrow-left"></i> المقارنة الشاملة</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>أدوات ومصادر مفيدة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-calculator"></i> حاسبة المغذيات</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> دليل السعرات الحرارية</a></li>
+                        <li><a href="#"><i class="fas fa-utensils"></i> وصفات صحية متوازنة</a></li>
+                        <li><a href="#"><i class="fas fa-chart-line"></i> تخطيط الوجبات اليومية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>نصائح غذائية</h3>
+                    <p>تذكر أن التوازن هو المفتاح. لا تركز على مغذٍ واحد وتتجاهل الآخرين. نظام غذائي متنوع يحتوي على جميع المغذيات الأساسية هو الأفضل لصحتك على المدى الطويل.</p>
+                    <p style="margin-top: 15px;"><i class="fas fa-apple-alt"></i> كل بألوان الطيف الغذائي للحصول على جميع الفيتامينات والمعادن</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 دليل المغذيات الأساسية - المعلومات لأغراض تعليمية. استشر أخصائي تغذية للتوصيات الشخصية المناسبة لاحتياجاتك الصحية</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', function() {
+                const nav = document.getElementById('mainNav');
+                const icon = document.querySelector('#mobileMenuBtn i');
+                
+                if (nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Highlight active section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#mainNav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
